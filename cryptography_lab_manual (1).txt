@@ -1,0 +1,863 @@
+CRYPTOGRAPHY AND NETWORK SECURITY LAB MANUAL
+============================================
+
+==============================================================
+Ex.No.1(a) CAESAR CIPHER
+==============================================================
+AIM:
+To implement a program for encrypting a plain text and decrypting a cipher text using Caesar Cipher (shift cipher) substitution technique.
+
+ALGORITHM:
+1. Create and initialize a string ALPHABET that holds the alphabet characters. The index position of the string represents the numeric representation for the corresponding characters in the string ALPHABET.
+2. Read the input plain text to be encrypted and also the Caesar cipher key an integer between 0 and 25.
+3. Encrypt the plain text using the Caesar cipher key and the ALPHABET string.
+   a. For every character in the plain text
+      i. Search the ALPHABET string for the character and assign the numeric representation of the character (plainnumeric) as the index position of the character in the ALPHABET string.
+      ii. Perform encryption using
+          ciphernumeric = (plainnumeric + Caesar cipher key) mod 26
+      iii. Use ciphernumeric as the index position and get the corresponding character from the ALPHABET string as the equivalent cipher text character for the plain text character
+   b. Print the equivalent cipher text.
+4. Decrypt the cipher text using the Caesar cipher key and the ALPHABET string.
+   a. For every character in the cipher text
+      i. Search the ALPHABET string for the character and assign the numeric representation of the character (ciphernumeric) as the index position of the character in the ALPHABET string.
+      ii. Perform decryption using
+          plainnumeric = (ciphernumeric - Caesar cipher key) mod 26
+          if plainnumeric < 0, plainnumeric = plainnumeric + 26
+      iii. Use plainnumeric as the index position and get the corresponding character from the ALPHABET string as the equivalent plain text character for the cipher text character
+   b. Print the equivalent plain text
+5. Stop
+
+PROGRAM:
+import java.util.Scanner;
+public class CaesarCipher {
+static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+static String encrypt(String text, int key) {
+StringBuilder sb = new StringBuilder();
+for (char ch : text.toUpperCase().toCharArray()) {
+int idx = ALPHABET.indexOf(ch);
+if (idx == -1) { sb.append(ch); continue; }
+sb.append(ALPHABET.charAt((idx + key) % 26));
+}
+return sb.toString();
+}
+static String decrypt(String text, int key) {
+StringBuilder sb = new StringBuilder();
+for (char ch : text.toUpperCase().toCharArray()) {
+int idx = ALPHABET.indexOf(ch);
+if (idx == -1) { sb.append(ch); continue; }
+int p = (idx - key) % 26;
+if (p < 0) p += 26;
+sb.append(ALPHABET.charAt(p));
+}
+return sb.toString();
+}
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+System.out.print("Enter the plain text: ");
+String plain = sc.nextLine();
+System.out.print("Enter the key (0-25): ");
+int key = sc.nextInt();
+String cipher = encrypt(plain, key);
+System.out.println("Cipher text : " + cipher);
+System.out.println("Decrypted text : " + decrypt(cipher, key));
+}
+}
+
+
+OUTPUT:
+
+RESULT:
+Thus the program to implement Caesar Cipher encryption technique was developed and executed.
+
+
+==============================================================
+Ex.No.1(b) PLAYFAIR CIPHER
+==============================================================
+AIM:
+To implement a program to encrypt a plain text and decrypt a cipher text using Playfair Cipher substitution technique.
+
+ALGORITHM:
+1. Generate the (5 x 5) key table or matrix using the key.
+   a. Fill the spaces in the table with the letters of the key without any duplication of letters.
+   b. Fill the remaining spaces with the rest of the letters of the alphabet in order by having 'I' & 'J' in the same space or omitting 'Q' to reduce the alphabet to fit.
+2. Remove any punctuation or characters from the plain text that are not present in the key square.
+3. Identify any double letters in the plaintext and insert 'X' between the two occurrences.
+4. Split the plain text into digraphs (groups of 2 letters)
+5. Encryption: Locate the digraph letters in the key table
+   a. If the letters appear on the same row of the table, replace them with the letters to their immediate right respectively (wrapping around to the left side of the row if a letter in the original pair was on the right side of the row).
+   b. If the letters appear on the same column of the table, replace them with the letters immediately below respectively (wrapping around to the top side of the column if a letter in the original pair was on the bottom side of the column).
+   c. If the letters are in different rows and columns, replace the pair with the letters on the same row respectively but at the other pair of corners of the rectangle defined by the original pair. The order is important - the first encrypted letter of the pair is the one that lies on the same row as the first plaintext letter.
+   d. Append the letters referred from the key table using the steps 5.a, 5.b and 5.c to generate Cipher text.
+6. Decryption: Split the cipher text into digraphs and locate the digraph letters in the key table.
+   a. If the letters appear on the same row of the table, replace them with the letters to their immediate left respectively (wrapping around to the right side of the row if a letter in the original pair was on the left side of the row).
+   e. If the letters appear on the same column of the table, replace them with the letters immediately above respectively (wrapping around to the bottom side of the column if a letter in the original pair was on the top side of the column).
+   f. If the letters are in different rows and columns, replace the pair with the letters on the same row respectively but at the other pair of corners of the rectangle defined by the original pair. The order is important - the first encrypted letter of the pair is the one that lies on the same row as the first plaintext letter.
+   g. Append the letters referred from the key table using the steps 6.a, 6.b and 6.c to generate Plain text.
+7. Stop
+
+PROGRAM:
+import java.util.Scanner;
+public class PlayfairCipher {
+static char[][] table = new char[5][5];
+static void generateTable(String key) {
+key = key.toUpperCase().replaceAll("[^A-Z]", "").replace('J', 'I');
+boolean[] used = new boolean[26];
+StringBuilder sb = new StringBuilder();
+for (char c : (key + "ABCDEFGHIKLMNOPQRSTUVWXYZ").toCharArray()) {
+if (!used[c - 'A']) { used[c - 'A'] = true; sb.append(c); }
+}
+for (int i = 0; i < 25; i++) table[i / 5][i % 5] = sb.charAt(i);
+}
+static int[] find(char c) {
+for (int i = 0; i < 5; i++)
+for (int j = 0; j < 5; j++)
+if (table[i][j] == c) return new int[]{i, j};
+return null;
+}
+static String prepare(String text) {
+text = text.toUpperCase().replaceAll("[^A-Z]", "").replace('J', 'I');
+StringBuilder sb = new StringBuilder();
+for (int i = 0; i < text.length(); i++) {
+sb.append(text.charAt(i));
+if (i + 1 < text.length() && text.charAt(i) == text.charAt(i +
+1)) sb.append('X');
+}
+if (sb.length() % 2 != 0) sb.append('X');
+return sb.toString();
+}
+static String process(String text, int dir) { // dir = +1 encrypt, -1
+decrypt
+StringBuilder sb = new StringBuilder();
+for (int i = 0; i < text.length(); i += 2) {
+int[] a = find(text.charAt(i)), b = find(text.charAt(i + 1));
+if (a[0] == b[0]) {
+sb.append(table[a[0]][(a[1] + dir + 5) %
+5]).append(table[b[0]][(b[1] + dir + 5) % 5]);
+} else if (a[1] == b[1]) {
+sb.append(table[(a[0] + dir + 5) % 5]
+[a[1]]).append(table[(b[0] + dir + 5) % 5][b[1]]);
+} else {
+sb.append(table[a[0]][b[1]]).append(table[b[0]][a[1]]);
+}
+}
+return sb.toString();
+}
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+System.out.print("Enter the key: ");
+String key = sc.nextLine();
+System.out.print("Enter the plain text: ");
+String plain = sc.nextLine();
+generateTable(key);
+System.out.println("\nPlayfair 5x5 key table:");
+for (char[] row : table) {
+for (char c : row) System.out.print(c + " ");
+System.out.println();
+}
+String prepared = prepare(plain);
+String cipher = process(prepared, 1);
+System.out.println("\nPrepared text : " + prepared);
+System.out.println("Cipher text : " + cipher);
+System.out.println("Decrypted text : " + process(cipher, -1));
+}
+}
+
+
+OUTPUT:
+
+RESULT:
+Thus the program to implement Playfair Cipher technique was developed and executed successfully.
+
+
+==============================================================
+Ex.No.1(c) HILL CIPHER
+==============================================================
+AIM:
+To develop a program to encrypt and decrypt using the Hill cipher substitution technique.
+
+ALGORITHM:
+1. Get the n-by-n key matrix with vectors of length n.
+2. Separate the plaintext from left to right into some number k of groups of n letters each. If you run out of letters when forming the final group, repeat the last plaintext letter or 'X' as many times as needed to fill out the final group of n letters.
+3. Replace each letter by the corresponding number of its position (from 0 through m-1) in the alphabet to get k groups of n integers each.
+4. Encryption:
+   a. Reshape each of the k groups of integers into an n-row column vector called Plain text matrix
+   b. Cipher Text Matrix = (Plain Text Matrix * Key Matrix) mod 26.
+   c. Using step 4.b, perform matrix multiplication of Plain text matrix and Key matrix and modulus 26 to yield Cipher text matrix.
+   d. Translate the Cipher text matrix to string representation by replacing each of the entries with the corresponding letter of the alphabet, after arranging all k of the resulting column vectors in order into a single vector of length k x n
+5. Decryption:
+   a. Find the inverse of the key matrix
+      i. Find the determinant of the key matrix
+      ii. Transpose the key matrix
+      iii. Find minor matrix and then Cofactor of the key matrix
+      iv. Key-1 = [Det(key matrix)^-1 * Co-factor] mod 26 using modulus arithmetic
+   b. Plain Text = (Cipher Text * Key-1) mod 26
+   c. Using step 5.b, perform matrix multiplication of Cipher text matrix and Key inverse matrix and modulus 26 to yield Plain text matrix.
+   d. Translate the Plain text matrix to string representation by replacing each of the entries with the corresponding letter of the alphabet, after arranging all k of the resulting column vectors and removing any letters padded in order into a single vector of length k x n
+6. Stop
+
+PROGRAM:
+import java.util.Scanner;
+public class HillCipher {
+static int modInverse(int a) {
+a = ((a % 26) + 26) % 26;
+for (int i = 1; i < 26; i++) if ((a * i) % 26 == 1) return i;
+return -1;
+}
+static String process(String text, int[][] k) {
+StringBuilder sb = new StringBuilder();
+for (int i = 0; i < text.length(); i += 2) {
+int p1 = text.charAt(i) - 'A', p2 = text.charAt(i + 1) - 'A';
+sb.append((char) (((p1 * k[0][0] + p2 * k[1][0]) % 26) + 'A'));
+sb.append((char) (((p1 * k[0][1] + p2 * k[1][1]) % 26) + 'A'));
+}
+return sb.toString();
+}
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+int[][] key = new int[2][2];
+System.out.println("Enter the 2x2 key matrix (4 integers, row by
+row):");
+for (int i = 0; i < 2; i++)
+for (int j = 0; j < 2; j++) key[i][j] = sc.nextInt();
+sc.nextLine();
+System.out.print("Enter the plain text: ");
+String plain = sc.nextLine().toUpperCase().replaceAll("[^A-Z]", "");
+if (plain.length() % 2 != 0) plain += "X";
+int det = ((key[0][0] * key[1][1] - key[0][1] * key[1][0]) % 26 + 26)
+% 26;
+int detInv = modInverse(det);
+if (detInv == -1) { System.out.println("Key matrix is not invertible
+mod 26."); return; }
+int[][] inv = new int[2][2];
+inv[0][0] = ((key[1][1] * detInv) % 26 + 26) % 26;
+inv[0][1] = ((-key[0][1] * detInv) % 26 + 26) % 26;
+inv[1][0] = ((-key[1][0] * detInv) % 26 + 26) % 26;
+inv[1][1] = ((key[0][0] * detInv) % 26 + 26) % 26;
+String cipher = process(plain, key);
+System.out.println("\nDeterminant (mod 26) : " + det);
+System.out.println("Inverse key matrix : [" + inv[0][0] + " " +
+inv[0][1] + "; " + inv[1][0] + " " + inv[1][1] + "]");
+System.out.println("Cipher text : " + cipher);
+System.out.println("Decrypted text : " + process(cipher,
+inv));
+}
+}
+
+
+OUTPUT:
+
+RESULT:
+Thus the program to implement Hill cipher encryption technique was developed and executed successfully.
+
+
+==============================================================
+Ex.No.1(d) VIGENERE CIPHER
+==============================================================
+AIM:
+To develop a program to implement encryption and decryption using Vigenere cipher substitution technique
+
+ALGORITHM:
+1. The Vigenere table consists of the alphabet written out 26 times in different rows, each alphabet shifted cyclically to the left compared to the previous alphabet, corresponding to the 26 possible Caesar ciphers.
+2. The Key is repeated so that the total length is equal to that of the plaintext. In this way, each letter in the plaintext is shifted by the alphabet number of the corresponding letter in the key.
+3. At different points in the encryption process, the cipher uses a different alphabet from one of the rows used.
+4. Encryption: The plaintext(P) and key(K) are added modulo 26.
+   Ei = (Pi + Ki) mod 26
+5. Decryption: Subtract the key from the Encrypted (Cipher) text and perform modulo 26 to arrive back at the original, plaintext value
+   Di = (Ei - Ki + 26) mod 26
+6. Stop
+
+PROGRAM:
+import java.util.Scanner;
+public class VigenereCipher {
+static String process(String text, String key, boolean encrypt) {
+StringBuilder sb = new StringBuilder();
+for (int i = 0; i < text.length(); i++) {
+int t = text.charAt(i) - 'A';
+int k = key.charAt(i % key.length()) - 'A';
+int r = encrypt ? (t + k) % 26 : (t - k + 26) % 26;
+sb.append((char) (r + 'A'));
+}
+return sb.toString();
+}
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+System.out.print("Enter the plain text: ");
+String plain = sc.nextLine().toUpperCase().replaceAll("[^A-Z]", "");
+System.out.print("Enter the key: ");
+String key = sc.nextLine().toUpperCase().replaceAll("[^A-Z]", "");
+String cipher = process(plain, key, true);
+System.out.println("Cipher text : " + cipher);
+System.out.println("Decrypted text : " + process(cipher, key,
+false));
+}
+}
+
+OUTPUT:
+
+RESULT:
+Thus the program to implement Vigenere cipher encryption technique was developed and executed successfully.
+
+
+==============================================================
+Ex.No: 2.a RAIL FENCE CIPHER
+==============================================================
+AIM:
+To develop a program for implementing encryption and decryption using rail fence transposition technique.
+
+ALGORITHM:
+1. Generate numerical keys from the word key by the characters of the word in alphabetical order.
+2. Encryption
+   i. The plain text is written in the matrix form, where the column of the matrix is the number of characters in the word key and row of the matrix is to accommodate the characters of the plain text and the space left after the plain text characters in the last row is filled with any character. (eg. x or z)
+   ii. The cipher text is generated by reading the characters column by column in the order specified in the numerical key.
+3. Decryption
+   i. The characters in the cipher text are filled in the matrix of the same order used for encryption, but in the order specified in the key. The characters from cipher text equal to the number of rows in matrix are taken and filled in the matrix column based on the order specified in the key
+   ii. The plain text is generated from cipher text by reading the characters from the matrix row by row.
+4. Stop
+
+PROGRAM:
+import java.util.Scanner;
+public class RailFence {
+static String encrypt(String text, int rails) {
+StringBuilder[] rail = new StringBuilder[rails];
+for (int i = 0; i < rails; i++) rail[i] = new StringBuilder();
+int row = 0, dir = 1;
+for (char c : text.toCharArray()) {
+rail[row].append(c);
+if (row == 0) dir = 1; else if (row == rails - 1) dir = -1;
+row += dir;
+}
+StringBuilder sb = new StringBuilder();
+for (StringBuilder r : rail) sb.append(r);
+return sb.toString();
+}
+static String decrypt(String cipher, int rails) {
+int n = cipher.length();
+int[] pattern = new int[n];
+int row = 0, dir = 1;
+for (int i = 0; i < n; i++) {
+pattern[i] = row;
+if (row == 0) dir = 1; else if (row == rails - 1) dir = -1;
+row += dir;
+}
+char[] result = new char[n];
+int idx = 0;
+for (int r = 0; r < rails; r++)
+for (int i = 0; i < n; i++)
+if (pattern[i] == r) result[i] = cipher.charAt(idx++);
+return new String(result);
+}
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+System.out.print("Enter the plain text: ");
+String plain = sc.nextLine().replace(" ", "");
+System.out.print("Enter the number of rails (key): ");
+int rails = sc.nextInt();
+String cipher = encrypt(plain, rails);
+System.out.println("Cipher text : " + cipher);
+System.out.println("Decrypted text : " + decrypt(cipher, rails));
+}
+}
+
+
+OUTPUT:
+
+RESULT:
+Thus the program for Railfence cipher was executed and verified successfully.
+
+
+==============================================================
+Ex.No: 2.b ROW-COLUMN TRANSPOSITION CIPHER
+==============================================================
+AIM:
+To develop a program for implementing encryption and decryption using row-column transposition technique.
+
+ALGORITHM:
+1. Start and read the plaintext message and the keyword.
+2. Determine the number of columns using the length of the keyword.
+3. Arrange the plaintext in rows, with each row containing a number of characters equal to the length of the keyword.
+4. If the last row is incomplete, fill the remaining cells with a padding character (such as X or _).
+5. Assign the column numbers according to the alphabetical order of the characters in the keyword.
+6. Rearrange the columns based on the assigned column order.
+7. Read the characters column by column in the order specified by the keyword to obtain the ciphertext.
+8. For decryption, create a matrix with the same number of rows and columns.
+9. Fill the columns of the matrix with the ciphertext according to the alphabetical order of the keyword.
+10. Rearrange the columns back to their original positions using the keyword
+11. Read the matrix row by row to obtain the original plaintext.
+12. Display the encrypted and decrypted messages.
+
+PROGRAM:
+import java.util.Scanner;
+public class RowColumnTransposition {
+static Integer[] order(String key) {
+Integer[] idx = new Integer[key.length()];
+for (int i = 0; i < idx.length; i++) idx[i] = i;
+java.util.Arrays.sort(idx, (a, b) -> key.charAt(a) != key.charAt(b)
+? key.charAt(a) - key.charAt(b) : a - b);
+return idx;
+}
+static String encrypt(String text, String key) {
+int cols = key.length();
+while (text.length() % cols != 0) text += "X";
+int rows = text.length() / cols;
+StringBuilder sb = new StringBuilder();
+for (int c : order(key))
+for (int r = 0; r < rows; r++) sb.append(text.charAt(r * cols +
+c));
+return sb.toString();
+}
+static String decrypt(String cipher, String key) {
+int cols = key.length(), rows = cipher.length() / cols;
+char[][] m = new char[rows][cols];
+int pos = 0;
+for (int c : order(key))
+for (int r = 0; r < rows; r++) m[r][c] = cipher.charAt(pos++);
+StringBuilder sb = new StringBuilder();
+for (char[] row : m) sb.append(row);
+return sb.toString();
+}
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+System.out.print("Enter the plain text: ");
+String plain = sc.nextLine().toUpperCase().replaceAll("[^A-Z]", "");
+System.out.print("Enter the keyword: ");
+String key = sc.nextLine().toUpperCase().replaceAll("[^A-Z]", "");
+String cipher = encrypt(plain, key);
+System.out.println("Cipher text : " + cipher);
+System.out.println("Decrypted text : " + decrypt(cipher, key));
+}
+}
+
+OUTPUT:
+
+RESULT:
+Thus the program for Railfence cipher was executed and verified successfully.
+
+
+==============================================================
+EX.No.: 3 DATA ENCRYPTION STANDARD (DES)
+==============================================================
+AIM:
+To develop a program to implement the Data Encryption Standard for encryption and decryption.
+
+ALGORITHM:
+1. Process the key.
+   i. Get a 64-bit key from the user.
+   ii. Calculate the key schedule.
+      1. Perform the following permutation on the 64-bit key. The parity bits are discarded, reducing the key to 56 bits.
+      2. Split the permuted key into two halves. The first 28 bits are called C[0] and the last 28 bits are called D[0].
+      3. Calculate the 16 subkeys. Start with i = 1.
+         1. Perform one or two circular left shifts on both C[i-1] and D[i-1] to get C[i] and D[i], respectively.
+         2. Permute the concatenation C[i]D[i] as indicated below. This will yield K[i], which is 48 bits long.
+         3. Loop back to 1.ii.c.1 until K[16] has been calculated.
+2. Process a 64-bit data block.
+   i. Get a 64-bit data block. If the block is shorter than 64 bits, it should be padded as appropriate for the application.
+   ii. Perform the initial permutation on the data block. Split the block into two halves. The first 32 bits are called L[0], and the last 32 bits are called R[0].
+   iii. Apply the 16 subkeys to the data block.
+      a. Expand the 32-bit into 48 bits according to the bit-selection function Expansion (E)
+      b. Exclusive-or E(R[i-1]) with K[i].
+      c. Break E(R[i-1]) xor K[i] into eight 6-bit blocks. Bits 1-6 are B[1], bits 7-12 are B[2], and so on with bits 43-48 being B[8].
+      d. Substitute the values found in the S-boxes for all B[j].
+      e. Start with j = 1. All values in the S-boxes should be considered 4 bits wide.
+         i. Take the 1st and 6th bits of B[j] together as a 2-bit value (call it m) indicating the row in S[j] to look in for the substitution.
+         ii. Take the 2nd through 5th bits of B[j] together as a 4-bit value (call it n) indicating the column in S[j] to find the substitution.
+         iii. Replace B[j] with S[j][m][n].
+         iv. Loop back to 2.iv.d.i until all 8 blocks have been replaced.
+      f. Permute the concatenation of B[1] through B[8]
+      g. Exclusive-or the resulting value with L[i-1]. Thus, all together, your R[i] = L[i-1] xor P(S[1](B[1])...S[8](B[8])), where B[j] is a 6-bit block of E(R[i-1]) xor K[i]. (The function for R[i] is written as, R[i] = L[i-1] xor f(R[i-1], K[i]).)
+      h. L[i] = R[i-1].
+      i. Loop back to 2.iv.a until K[16] has been applied.
+   ii. Perform the final permutation on the block R[16]L[16].
+3. Decryption: Use the keys K[i] in reverse order. That is, instead of applying K[1] for the first iteration, apply K[16], and then K[15] for the second, on down to K[1]
+
+PROGRAM:
+
+import java.util.Scanner;
+
+public class DESAlgorithm {
+    static int[] sbox = {14, 4, 13, 1, 2, 15, 11, 8,
+                         3, 10, 6, 12, 5, 9, 0, 7};
+
+    static int encrypt(int data, int key) {
+        int left = (data >> 4) & 15;
+        int right = data & 15;
+
+        for(int i = 0; i < 4; i++) {
+            int temp = right;
+            int f = sbox[(right ^ key) & 15];
+            right = left ^ f;
+            left = temp;
+        }
+
+        return (left << 4) | right;
+    }
+
+    static int decrypt(int data, int key) {
+        int left = (data >> 4) & 15;
+        int right = data & 15;
+
+        for(int i = 0; i < 4; i++) {
+            int temp = left;
+            int f = sbox[(left ^ key) & 15];
+            left = right ^ f;
+            right = temp;
+        }
+
+        return (left << 4) | right;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter the plain text (0-255): ");
+        int plain = sc.nextInt();
+
+        System.out.print("Enter key (0-15): ");
+        int key = sc.nextInt();
+
+        int encrypted = encrypt(plain, key);
+        System.out.println("Encrypted text: " + encrypted);
+
+        int decrypted = decrypt(encrypted, key);
+        System.out.println("Decrypted text: " + decrypted);
+
+        sc.close();
+    }
+}
+
+OUTPUT:
+
+RESULT:
+Thus the program to implement DES encryption technique was developed and executed successfully
+
+
+==============================================================
+EX.No.: 4 AES ALGORITHM
+==============================================================
+AIM:
+To develop a program to implement Advanced Encryption Standard for encryption and Decryption
+
+ALGORITHM:
+Step 1: Accept the plaintext and secret key as input.
+Step 2: Convert the plaintext into a 128-bit data block and arrange it as a 4 x 4 byte state matrix.
+Step 3: Generate the Round Keys from the original key using the Key Expansion process.
+Step 4: Perform the initial AddRoundKey operation by XORing the state with the first round key.
+Step 5: For each of the first 9 rounds, perform:
+   a. SubBytes: Replace each byte using the AES S-Box.
+   b. ShiftRows: Cyclically shift the rows of the state matrix.
+   c. MixColumns: Transform each column using matrix multiplication in GF(2^8).
+Step 6: AddRoundKey - XOR the state with the corresponding round key.
+Step 7: Perform the 10th round:
+   a. SubBytes: Replace each byte of the state matrix using the AES S-Box.
+   b. ShiftRows: Cyclically shift the bytes in each row of the state matrix.
+   c. AddRoundKey: XOR the state matrix with the 10th round key.
+Step 8: The resulting state matrix is the ciphertext.
+
+PROGRAM:
+
+import java.util.Scanner;
+
+public class AESAlgorithm {
+    static int[][] sbox = {
+        {9, 4, 10, 11},
+        {13, 1, 8, 5},
+        {6, 2, 0, 3},
+        {12, 14, 15, 7}
+    };
+
+    static int[][] invsbox = {
+        {10, 5, 9, 11},
+        {1, 7, 8, 15},
+        {6, 0, 2, 3},
+        {12, 4, 13, 14}
+    };
+
+    static void subBytes(int[][] state) {
+        for(int i = 0; i < 4; i++)
+            for(int j = 0; j < 4; j++)
+                state[i][j] = sbox[state[i][j] / 4][state[i][j] % 4];
+    }
+
+    static void invSubBytes(int[][] state) {
+        for(int i = 0; i < 4; i++)
+            for(int j = 0; j < 4; j++)
+                state[i][j] = invsbox[state[i][j] / 4][state[i][j] % 4];
+    }
+
+    static void shiftRows(int[][] s) {
+        for(int i = 1; i < 4; i++) {
+            for(int j = 0; j < i; j++) {
+                int temp = s[i][0];
+                for(int k = 0; k < 3; k++)
+                    s[i][k] = s[i][k + 1];
+                s[i][3] = temp;
+            }
+        }
+    }
+
+    static void invShiftRows(int[][] s) {
+        for(int i = 1; i < 4; i++) {
+            for(int j = 0; j < i; j++) {
+                int temp = s[i][3];
+                for(int k = 3; k > 0; k--)
+                    s[i][k] = s[i][k - 1];
+                s[i][0] = temp;
+            }
+        }
+    }
+
+    static void addRoundKey(int[][] s, int[][] key) {
+        for(int i = 0; i < 4; i++)
+            for(int j = 0; j < 4; j++)
+                s[i][j] ^= key[i][j];
+    }
+
+    static void mainEncrypt(int[][] s, int[][] key) {
+        addRoundKey(s, key);
+        subBytes(s);
+        shiftRows(s);
+        addRoundKey(s, key);
+    }
+
+    static void mainDecrypt(int[][] s, int[][] key) {
+        addRoundKey(s, key);
+        invShiftRows(s);
+        invSubBytes(s);
+        addRoundKey(s, key);
+    }
+
+    static void display(int[][] s) {
+        for(int i = 0; i < 4; i++) {
+            for(int j = 0; j < 4; j++)
+                System.out.print(s[i][j] + " ");
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int[][] state = new int[4][4];
+        int[][] key = new int[4][4];
+
+        System.out.println("Enter 16 values (0-15) for plaintext:");
+        for(int i = 0; i < 4; i++)
+            for(int j = 0; j < 4; j++)
+                state[i][j] = sc.nextInt();
+
+        System.out.println("Enter 16 values (0-15) for key:");
+        for(int i = 0; i < 4; i++)
+            for(int j = 0; j < 4; j++)
+                key[i][j] = sc.nextInt();
+
+        mainEncrypt(state, key);
+        System.out.println("Encrypted Text:");
+        display(state);
+
+        mainDecrypt(state, key);
+        System.out.println("Decrypted Text:");
+        display(state);
+        sc.close();
+    }
+}
+
+
+OUTPUT:
+
+RESULT:
+Thus the program to implement AES encryption technique was developed and executed successfully.
+
+
+==============================================================
+EX.No.: 5 RSA ALGORITHM
+==============================================================
+AIM:
+Develop a program to implement RSA algorithm for encryption and decryption.
+
+ALGORITHM:
+(Note: the mathematical symbols and formulas did not come through in the source PDF text, so only the step descriptions are shown.)
+i : Select two prime numbers p and q.
+ii : Calculate n using: n = p * q
+iii : Calculate Euler's totient function phi(n) = (p-1)(q-1)
+iv: Choose an integer e such that: 1 < e < phi(n) and gcd(e, phi(n)) = 1
+v: Calculate the private key d such that: d * e = 1 mod phi(n)
+vi: Generate the keys:
+   Public Key: (e, n)
+   Private Key: (d, n)
+vii: For encryption, convert the plaintext into a numerical value and calculate the ciphertext: C = M^e mod n
+viii: For decryption, calculate the original plaintext using: M = C^d mod n
+
+PROGRAM:
+import java.math.BigInteger;
+import java.util.Scanner;
+public class RSAAlgorithm {
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+System.out.print("Enter prime number p: ");
+BigInteger p = sc.nextBigInteger();
+System.out.print("Enter prime number q: ");
+BigInteger q = sc.nextBigInteger();
+System.out.print("Enter the message (integer less than n): ");
+BigInteger msg = sc.nextBigInteger();
+BigInteger n = p.multiply(q);
+BigInteger phi =
+p.subtract(BigInteger.ONE).multiply(q.subtract(BigInteger.ONE));
+BigInteger e = BigInteger.valueOf(3);
+while (!phi.gcd(e).equals(BigInteger.ONE)) e = e.add(BigInteger.TWO);
+BigInteger d = e.modInverse(phi);
+System.out.println("\nn = p x q : " + n);
+System.out.println("phi(n) : " + phi);
+System.out.println("Public key (e,n): (" + e + ", " + n + ")");
+System.out.println("Private key (d,n): (" + d + ", " + n + ")");
+BigInteger cipher = msg.modPow(e, n);
+BigInteger plain = cipher.modPow(d, n);
+System.out.println("\nCipher text : " + cipher);
+System.out.println("Decrypted text : " + plain);
+}
+}
+
+OUTPUT:
+
+RESULT:
+Thus the program for implementation of RSA algorithm was executed and verified successfully.
+
+
+==============================================================
+EX.No.: 6 DIFFIE HELLMAN KEY EXCHANGE ALGORITHM
+==============================================================
+AIM:
+Develop a program to implement Diffie Hellman Key Exchange Algorithm for encryption and Decryption.
+
+ALGORITHM:
+1. Global Public Elements:
+   Let q be a prime number and a be an integer where a < q and a is a primitive root of q.
+2. User A Key Generation:
+   i. Select private XA where XA < q
+   ii. Calculate public YA where YA = a^XA mod q
+3. User B Key Generation:
+   i. Select private XB where XB < q
+   ii. Calculate public YB where YB = a^XB mod q
+4. Calculation of Secret Key by User A: K = (YB)^XA mod q
+5. Calculation of Secret Key by User B: K = (YA)^XB mod q
+
+PROGRAM:
+import java.math.BigInteger;
+import java.util.Scanner;
+public class DiffieHellman {
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+System.out.print("Enter prime number q: ");
+BigInteger q = sc.nextBigInteger();
+System.out.print("Enter primitive root a of q: ");
+BigInteger a = sc.nextBigInteger();
+System.out.print("Enter private key of User A (XA < q): ");
+BigInteger xa = sc.nextBigInteger();
+System.out.print("Enter private key of User B (XB < q): ");
+BigInteger xb = sc.nextBigInteger();
+BigInteger ya = a.modPow(xa, q);
+BigInteger yb = a.modPow(xb, q);
+System.out.println("\nPublic key of A (YA) : " + ya);
+System.out.println("Public key of B (YB) : " + yb);
+BigInteger ka = yb.modPow(xa, q);
+BigInteger kb = ya.modPow(xb, q);
+System.out.println("Secret key computed by A : " + ka);
+System.out.println("Secret key computed by B : " + kb);
+System.out.println(ka.equals(kb) ? "Key exchange successful: both
+keys match."
+: "Key exchange failed.");
+}
+}
+
+
+OUTPUT:
+
+RESULT:
+Thus the program to implement Diffie-Hellman Key Exchange algorithm was developed and executed successfully.
+
+
+==============================================================
+EX.No.: 8 IMPLEMENT DIGITAL SIGNATURE SCHEME
+==============================================================
+AIM:
+To write a program to implement the digital signature scheme.
+
+ALGORITHM:
+1. Choose a prime number q, which is called the prime divisor.
+2. Choose another prime number p, such that p-1 mod q = 0. p is called the prime modulus.
+3. Choose an integer g, such that 1 < g < p, g**q mod p = 1 and g = h**((p-1)/q) mod p. q is also called g's multiplicative order modulo p.
+4. Choose an integer x, such that 0 < x < q.
+5. Compute y as g**x mod p.
+6. Package the public key as {p,q,g,y}, {p,q,g,x}.
+7. Generate the message digest h, using a hash algorithm like SHA1.
+8. Generate a random number k, such that 0 < k < q.
+9. Compute r as (g**k mod p) mod q. If r = 0, select a different k.
+10. Compute i, such that k*i mod q = 1. i is called the modular multiplicative inverse of k modulo q.
+11. Compute s = i*(h+r*x) mod q. If s = 0, select a different k.
+12. Package the digital signature as {r,s}.
+13. Generate the message digest h, using the same hash algorithm.
+14. Compute w, such that s*w mod q = 1. w is called the modular multiplicative inverse of s modulo q.
+15. Compute u1 = h*w mod q. Compute u2 = r*w mod q.
+16. Compute v = (((g**u1)*(y**u2)) mod p) mod q.
+17. If v == r, the digital signature is valid.
+
+PROGRAM:
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.SecureRandom;
+import java.util.Scanner;
+public class DigitalSignature {
+public static void main(String[] args) throws Exception {
+Scanner sc = new Scanner(System.in);
+System.out.print("Enter the message: ");
+String message = sc.nextLine();
+SecureRandom rnd = new SecureRandom();
+BigInteger q = BigInteger.probablePrime(160, rnd); // prime
+divisor
+BigInteger p, one = BigInteger.ONE;
+do { // prime
+modulus, q | (p-1)
+BigInteger k0 = new BigInteger(352, rnd).setBit(351);
+p = q.multiply(k0).add(one);
+} while (!p.isProbablePrime(50));
+BigInteger g;
+BigInteger e = p.subtract(one).divide(q);
+do {
+BigInteger h0 = new BigInteger(p.bitLength() - 2,
+rnd).add(BigInteger.TWO);
+g = h0.modPow(e, p);
+} while (g.compareTo(one) <= 0);
+BigInteger x = new BigInteger(159, rnd).add(one); //
+private key
+BigInteger y = g.modPow(x, p); //
+public key
+System.out.println("\nPublic key {p,q,g,y}:");
+System.out.println("p = " + p + "\nq = " + q + "\ng = " + g + "\ny =
+" + y);
+System.out.println("Private key x = " + x);
+MessageDigest md = MessageDigest.getInstance("SHA-1");
+BigInteger h = new BigInteger(1, md.digest(message.getBytes("UTF8")));
+BigInteger k, r, s;
+do {
+k = new BigInteger(159, rnd).add(one);
+r = g.modPow(k, p).mod(q);
+s = k.modInverse(q).multiply(h.add(r.multiply(x))).mod(q);
+} while (r.signum() == 0 || s.signum() == 0);
+System.out.println("\nMessage digest h = " + h);
+System.out.println("Signature {r,s}:\nr = " + r + "\ns = " + s);
+BigInteger w = s.modInverse(q);
+BigInteger u1 = h.multiply(w).mod(q);
+BigInteger u2 = r.multiply(w).mod(q);
+BigInteger v = g.modPow(u1, p).multiply(y.modPow(u2,
+p)).mod(p).mod(q);
+System.out.println("\nv = " + v);
+System.out.println(v.equals(r) ? "Digital signature is VALID (v ==
+r)"
+: "Digital signature is INVALID");
+}
+}
+
+
+OUTPUT:
+
+RESULT:
+Thus the program to implement Digital Signature was developed and executed successfully
+
+
