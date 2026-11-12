@@ -1,0 +1,1604 @@
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y Ex No: 1
+Demonstration of Port Scanning and Footprinting Date :
+
+AIM
+
+            To perform footprinting and port scanning on a target system using Nmap and identify the open
+    ports and running services.
+
+    Requirements
+     Kali Linux
+
+        Nmap
+
+    Footprinting is the first phase of ethical hacking. It is the process of collecting information about a target
+    system before performing penetration testing.
+    Port scanning identifies open TCP/UDP ports and the services running on them.
+
+    Procedure
+    1. Boot Kali Linux.
+
+    2. Open Terminal.
+
+    3. Verify Nmap installation.
+
+           nmap --version
+    4. Scan the target host.
+
+           nmap 192.168.1.10
+    5. Perform service version detection.
+
+           nmap -sV 192.168.1.10
+    6. Perform OS detection.
+
+          sudo nmap -O 192.168.1.10
+    7. Record the open ports.
+
+
+    Program / Commands
+    Step 1: Verify Nmap Installation
+            nmap --version
+    Step 2: Scan a Target Host
+            nmap 192.168.1.10
+    Step 3: Scan Multiple Hosts
+            nmap 192.168.1.10 192.168.1.15
+    Step 4: Scan an Entire Network
+            nmap 192.168.1.0/24
+    Step 5: Perform a Ping Scan (Host Discovery)
+            nmap -sn 192.168.1.0/24
+    Step 6: Detect Service Versions
+            nmap -sV 192.168.1.10
+    Step 7: Detect Operating System
+            sudo nmap -O 192.168.1.10
+    Step 8: Perform Aggressive Scan
+            sudo nmap -A 192.168.1.10
+    Step 9: Scan Specific Ports
+                                                      1
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y nmap -p 22,80,443
+192.168.1.10 Step 10: Scan All TCP Ports nmap -p- 192.168.1.10 Step 11:
+Perform SYN Scan sudo nmap -sS 192.168.1.10 Step 12: Perform UDP Scan
+sudo nmap -sU 192.168.1.10 Step 13: Save Scan Results to a File nmap -oN
+scan_results.txt 192.168.1.10 Step 14: Save Results in XML Format nmap
+-oX scan_results.xml 192.168.1.10 Step 15: Save Results in All Formats
+nmap -oA network_scan 192.168.1.10
+
+     Sample Output
+     Starting Nmap 7.95 ( https://nmap.org )
+     Nmap scan report for 192.168.1.10
+     Host is up (0.0020s latency).
+     Not shown: 997 closed ports
+     PORT STATE SERVICE          VERSION
+     22/tcp open ssh         OpenSSH 8.9
+     80/tcp open http         Apache httpd 2.4.58
+     443/tcp open https        Apache SSL
+     MAC Address: 08:00:27:8A:2B:3C
+     Device Type: General Purpose
+     Running: Linux 5.x
+     OS Details: Linux Kernel 5.x
+     Network Distance: 1 Hop
+     Nmap done: 1 IP address (1 host up) scanned in 6.52 seconds
+
+
+
+
+     Result
+             Thus, the target system was successfully footprinted and the open ports, services, and operating
+     system information were identified using Nmap.
+
+
+
+                                                      2
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y Ex No: 2 Host and
+Service Discovery Using Nmap Date : Aim To discover live hosts and
+identify the services running on each host in a network. Requirements 
+Kali Linux
+
+        Nmap
+
+             Host discovery determines whether systems are active in a network. Service discovery identifies
+     applications like HTTP, FTP, SSH, DNS, SMTP, etc.
+
+     Procedure
+        1. Open Kali Linux Terminal.
+
+         2. Ping scan the subnet.
+
+                    nmap -sn 192.168.1.0/24
+         3. Scan discovered host.
+
+                    nmap -A 192.168.1.15
+         4. Note all discovered services.
+
+
+     Program / Commands
+     Step 1: Discover Live Hosts in the Network
+             nmap -sn 192.168.1.0/24
+     Step 2: Scan a Specific Host
+             nmap 192.168.1.15
+     Step 3: Detect Running Services
+             nmap -sV 192.168.1.15
+     Step 4: Detect the Operating System
+             sudo nmap -O 192.168.1.15
+     Step 5: Perform Aggressive Scan
+             sudo nmap -A 192.168.1.15
+     Step 6: Scan Specific Ports
+             nmap -p 21,22,80,139,445 192.168.1.15
+     Step 7: Scan All TCP Ports
+             nmap -p- 192.168.1.15
+     Step 8: Perform TCP SYN Scan
+             sudo nmap -sS 192.168.1.15
+     Step 9: Perform UDP Scan
+             sudo nmap -sU 192.168.1.15
+     Step 10: Perform Traceroute
+             nmap --traceroute 192.168.1.15
+     Step 11: Display Host Information
+             nmap -Pn 192.168.1.15
+     Step 12: Save Scan Results
+             nmap -oN host_scan.txt 192.168.1.15
+
+
+
+
+                                                     3
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y Sample Output
+Starting Nmap 7.95 ( https://nmap.org ) Nmap scan report for
+192.168.1.15 Host is up (0.0018s latency). PORT STATE SERVICE VERSION
+21/tcp open ftp vsftpd 3.0.5 22/tcp open ssh OpenSSH 8.9 80/tcp open
+http Apache httpd 2.4.58 139/tcp open netbios-ssn 445/tcp open
+microsoft-ds MAC Address : 08:00:27:AA:BB:CC Device Type : General
+Purpose Running : Linux OS Details : Linux Kernel 5.x Traceroute 1
+192.168.1.15 Nmap done: 1 IP address (1 host up) scanned in 8.64 seconds
+
+     Result
+              Thus, live hosts and their corresponding network services were successfully discovered using Nmap.
+
+
+
+                                                      4
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y Ex No: 3 Password
+Auditing and Security Assessment Date :
+
+    Aim
+           To assess password strength using John the Ripper in a controlled laboratory environment.
+    Requirements
+        Kali Linux
+
+          John the Ripper
+
+        Password auditing checks whether passwords are weak, predictable, or vulnerable to offline cracking.
+    Strong passwords improve system security.
+
+    Procedure
+       1. Open Terminal.
+
+       2. Create password hash file.
+
+                 unshadow passwd shadow > hashes.txt
+       3. Execute John.
+
+                  john hashes.txt
+       4. Display cracked passwords.
+
+                   john --show hashes.txt
+
+    Program / Commands
+    Step 1: Verify John the Ripper Installation
+            john --version
+    Step 2: Create a Password Hash File
+            unshadow passwd shadow > hashes.txt
+    Step 3: View the Contents of the Hash File
+            cat hashes.txt
+    Step 4: Perform Password Auditing
+            john hashes.txt
+    Step 5: Display Cracked Passwords
+            john --show hashes.txt
+    Step 6: Use a Dictionary File for Password Cracking
+            john --wordlist=/usr/share/wordlists/rockyou.txt hashes.txt
+    Step 7: Display Password Hash Information
+            john --list=formats
+    Step 8: Check Password Hash Type
+            john --show --format=crypt hashes.txt
+    Step 9: Save Cracked Passwords
+            john --show hashes.txt > cracked_passwords.txt
+    Step 10: View Saved Results
+            cat cracked_passwords.txt
+    Step 11: Remove Previous Session
+            john --session=password_audit --restore
+    Step 12: Display Help Menu
+            john --help
+
+
+
+                                                     5
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y Sample Output
+John the Ripper 1.9.0 Loaded 5 password hashes Proceeding with single,
+wordlist and incremental modes password123 admin@123 welcome@2025
+root123 student@123 Session completed. Use the “–show” option to display
+cracked passwords.
+
+     Display Cracked Passwords
+     root:password123
+     admin:admin@123
+     student:student@123
+     guest:welcome@2025
+     Total Passwords Cracked: 4
+
+
+
+
+     Result
+     Thus, password auditing was successfully performed and weak passwords were identified using John the
+     Ripper.
+
+                                                    6
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y Ex No: 4
+Implementation of Network Enumeration Tools Date :
+
+    Aim
+           To enumerate network resources and gather information about users, shared folders, NetBIOS
+    names, and SMB services using network enumeration tools.
+    Requirements
+        Kali Linux
+
+          Nmap
+
+          Enum4linux
+
+          SMB Service (Target Machine)
+
+
+        Enumeration is the process of extracting detailed information from a target system after discovering
+    active hosts. It helps identify usernames, shared folders, operating system details, domain names, and
+    network resources.
+
+    Procedure
+       1. Open Kali Linux Terminal.
+
+       2. Verify connectivity with the target machine.
+
+       3. Perform SMB enumeration using Enum4linux.
+
+       4. Scan SMB services using Nmap.
+
+       5. Record all discovered information.
+
+
+    Program / Commands
+    Step 1: Verify Enum4linux Installation
+            enum4linux -h
+    Step 2: Scan the Target Host Using Nmap
+            nmap 192.168.1.15
+
+    Step 3: Detect SMB Services
+            nmap -p 139,445 192.168.1.15
+    Step 4: Detect Service Versions
+            nmap -sV 192.168.1.15
+    Step 5: Detect Operating System
+            sudo nmap -O 192.168.1.15
+    Step 6: Enumerate SMB Information
+            enum4linux -a 192.168.1.15
+    Step 7: Enumerate Shared Folders
+            nmap --script smb-enum-shares 192.168.1.15
+    Step 8: Enumerate Users
+            nmap --script smb-enum-users 192.168.1.15
+    Step 9: Discover Operating System Information
+            nmap --script smb-os-discovery 192.168.1.15
+    Step 10: Enumerate SMB Security Mode
+
+                                                   7
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y nmap –script
+smb-security-mode 192.168.1.1 Step 11: Enumerate SMB Protocols nmap
+–script smb-protocols 192.168.1.15 Step 12: Save Enumeration Results
+enum4linux -a 192.168.1.15 > enumeration_report.txt Step 13: View the
+Saved Report cat enumeration_report.txt Step 14: Display Help Menu
+enum4linux –help
+
+     Sample Output
+     Starting Nmap 7.95
+     Nmap scan report for 192.168.1.15
+     Host is up (0.0020s latency).
+     PORT STATE SERVICE
+     139/tcp open netbios-ssn
+     445/tcp open microsoft-ds
+     Service Info:
+     Host Name : SERVER01
+     Operating System : Windows 10
+     Workgroup : WORKGROUP
+     MAC Address : 08:00:27:AA:BB:CC
+
+     SMB Enumeration Output
+     Target Information
+     NetBIOS Name : SERVER01
+     Workgroup : WORKGROUP
+     Operating System : Windows 10 Professional
+     Shared Resources
+     Documents
+     Public
+     IPC$
+     Users
+     Administrator
+     Guest
+     Student
+     Printer Share : Available
+     Saved Report
+     Enumeration Report Saved Successfully
+     File Name : enumeration_report.txt
+     Status : Completed
+
+
+
+     Result
+     Thus, the target machine was successfully enumerated and information regarding shared folders, NetBIOS
+     name, workgroup, and operating system was obtained.
+
+
+
+                                                    8
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y Ex No: 5 Packet
+Sniffing and Traffic Analysis using Wireshark Date :
+
+    Aim
+           To capture and analyze network packets using Wireshark.
+    Requirements
+        Kali Linux
+
+           Wireshark
+
+           Internet Connection
+
+        Packet sniffing is the process of capturing network traffic flowing through a network interface.
+    Wireshark is an open-source packet analyzer used for troubleshooting, protocol analysis, and network
+    security monitoring.
+
+    Procedure
+       1. Open Wireshark.
+
+        2. Select the active network interface.
+
+        3. Click Start Capturing Packets.
+
+        4. Browse any website to generate network traffic.
+
+        5. Apply protocol filters.
+
+        6. Observe packet details.
+
+        7. Stop packet capture.
+
+
+    Program / Commands
+    Step 1: Launch Wireshark
+             wireshark
+    Step 2: Display Available Network Interfaces
+             ip link show
+    Step 3: Capture Packets from a Specific Interface (Terminal Mode)
+             sudo tshark -i eth0
+    Note: Replace eth0 with your active network interface (e.g., wlan0).
+    Step 4: Capture Only 20 Packets
+             sudo tshark -i eth0 -c 20
+    Step 5: Save Captured Packets to a File
+             sudo tshark -i eth0 -w capture.pcap
+    Step 6: Open the Saved Capture File
+             wireshark capture.pcap
+    Step 7: Apply HTTP Display Filter
+             http
+    Step 8: Apply DNS Display Filter
+             dns
+    Step 9: Apply TCP Display Filter
+             tcp
+    Step 10: Apply UDP Display Filter
+                                                       9
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y udp Step 11:
+Apply ICMP Display Filter icmp Step 12: Apply ARP Display Filter arp
+Step 13: Display Packets from a Specific IP Address ip.addr ==
+192.168.1.20 Step 14: Display HTTP GET Requests http.request.method ==
+“GET” Step 15: Display HTTP Response Packets http.response.code == 200
+Step 16: Display TCP Packets for Port 80 tcp.port == 80 Step 17: Display
+DNS Queries Only dns.flags.response == 0 Step 18: Display HTTPS Traffic
+tcp.port == 443 Step 19: Save the Packet Capture From the Wireshark
+menu: File → Save As → traffic_capture.pcapng Step 20: Exit Wireshark
+exit
+
+     Useful Display Filters
+     http
+     https
+     dns
+     tcp
+     udp
+     icmp
+     arp
+     ftp
+     ssh
+     ip.addr == 192.168.1.20
+     tcp.port == 80
+     tcp.port == 443
+     http.request.method == "GET"
+     http.response.code == 200
+
+
+
+
+                                                       10
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y Sample Output
+Starting Wireshark… Capturing on Interface: eth0 Packet No : 125 Time :
+12.352 s Source IP : 192.168.1.20 Destination IP : 142.250.182.14
+Protocol : HTTP Method : GET Status : 200 OK Length : 512 Bytes Info :
+GET /index.html HTTP/1.1 —————————————————- Packet No : 126 Protocol :
+DNS Source IP : 192.168.1.20 Destination IP : 8.8.8.8 Query :
+www.google.com —————————————————- Packet No : 127 Protocol : TCP Source
+Port : 49152 Destination Port : 443 Status : Established
+
+       Result
+       Thus, network packets were successfully captured and analyzed using Wireshark.
+
+
+
+                                                            11
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y Ex No: 6 Web
+Security Testing using Nmap, Nikto and OWASP ZAP Date :
+
+    Aim
+           To identify web server vulnerabilities using Nmap, Nikto, and OWASP ZAP.
+    Requirements
+        Kali Linux
+
+          Nmap
+
+          Nikto
+
+          OWASP ZAP
+
+        Web application security testing identifies vulnerabilities such as insecure HTTP headers, outdated
+    software, weak SSL configurations, and common web security flaws.
+         Nmap scans web service ports.
+
+          Nikto identifies web server vulnerabilities.
+
+          OWASP ZAP performs automated web application security testing.
+
+
+    Procedure
+    Part A – Nmap Scan
+        1. Open Terminal.
+
+       2. Scan the web server.
+
+                   nmap -sV 192.168.1.20
+
+    Part B – Nikto Scan
+        1. Launch Nikto.
+
+       2. Scan the web application.
+
+                  nikto -h http://192.168.1.20
+    Part C – OWASP ZAP
+        1. Open OWASP ZAP.
+
+       2. Select Automated Scan.
+
+       3. Enter the target URL.
+
+       4. Start the scan.
+
+       5. Review the vulnerability report.
+
+
+    Program / Commands
+    Step 1: Verify Nmap Installation
+            nmap --version
+    Step 2: Verify Nikto Installation
+            nikto -Version
+    Step 3: Scan the Target Web Server
+            nmap 192.168.1.20
+    Step 4: Detect Web Server Service Versions
+                                                      12
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y nmap -sV
+192.168.1.20 Step 5: Perform Aggressive Scan sudo nmap -A 192.168.1.20
+Step 6: Scan HTTP and HTTPS Ports nmap -p 80,443 192.168.1.20 Step 7:
+Detect Operating System sudo nmap -O 192.168.1.20 Step 8: Scan the
+Target Using Nikto nikto -h http://192.168.1.20 Step 9: Scan HTTPS
+Website nikto -h https://192.168.1.20 Step 10: Save Nikto Scan Report
+nikto -h http://192.168.1.20 -o nikto_report.txt
+
+     Step 11: Launch OWASP ZAP
+     zaproxy
+
+     Step 12: Start an Automated Scan
+     Open OWASP ZAP and perform the following:
+                                                      Quick Start
+                                                          ↓
+                                                   Automated Scan
+                                                          ↓
+                                                   Enter Target URL
+                                                          ↓
+                                                        Attack
+     Step 13: Perform Spider Scan
+                                                   Right Click Target
+                                                           ↓
+                                                        Attack
+                                                           ↓
+                                                         Spider
+     Step 14: Perform Active Scan
+                                                   Right Click Target
+                                                           ↓
+                                                        Attack
+                                                           ↓
+                                                      Active Scan
+     Step 15: Generate ZAP Report
+                                                        Report
+                                                          ↓
+                                                   Generate Report
+                                                          ↓
+                                                  Save as HTML/PDF
+     Step 16: Save Nmap Scan Report
+             nmap -oN nmap_report.txt 192.168.1.20
+     Step 17: View Saved Report
+             cat nikto_report.txt
+     Step 18: Display Help Menu
+             nikto -Help
+
+                                                        13
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y Useful Nmap
+Commands nmap 192.168.1.20 nmap -sV 192.168.1.20 sudo nmap -A
+192.168.1.20 sudo nmap -O 192.168.1.20 nmap -p 80,443 192.168.1.20 nmap
+-oN nmap_report.txt 192.168.1.20
+
+    Useful Nikto Commands
+    nikto -h http://192.168.1.20
+    nikto -h https://192.168.1.20
+    nikto -h http://192.168.1.20 -o nikto_report.txt
+    nikto -Version
+    nikto -Help
+
+
+    Sample Output
+    Starting Nmap 7.95
+    Nmap scan report for 192.168.1.20
+    Host is up (0.0016s latency).
+    PORT STATE SERVICE VERSION
+    80/tcp open http                Apache httpd 2.4.58
+    443/tcp open https                Apache SSL
+    OS Details : Linux Kernel 5.x
+    ----------------------------------------------------
+    Nikto Scan Report
+    Target IP : 192.168.1.20
+    Server : Apache/2.4.58
+    Missing X-Frame-Options Header
+    Missing X-Content-Type-Options Header
+    Directory Indexing Enabled
+    Server Version Disclosure
+    Outdated Apache Version
+    Potential Security Misconfiguration
+    Scan Completed Successfully
+    ----------------------------------------------------
+    OWASP ZAP Report
+    Target : http://192.168.1.20
+    High Risk Alerts : 2
+    Medium Risk Alerts : 5
+    Low Risk Alerts : 7
+    Informational Alerts : 15
+    Spider Completed : 100%
+    Active Scan Completed : 100%
+    Report Generated Successfully
+
+
+
+    Result
+             Thus, web application vulnerabilities were successfully identified using Nmap, Nikto, and OWASP
+    ZAP.
+                                                           14
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y Ex No: 7
+Implementation of Web Security Testing using Nmap, Nikto, OWASP ZAP and
+Burp Suite Date :
+
+    Aim
+           To identify web application vulnerabilities using Nmap, Nikto, OWASP ZAP, and Burp Suite.
+    Requirements
+        Kali Linux
+
+           Nmap
+           Nikto
+           OWASP ZAP
+           Burp Suite Community Edition
+           DVWA (Damn Vulnerable Web Application) or OWASP Juice Shop
+        Web application security testing involves identifying security flaws such as SQL Injection, Cross-Site
+    Scripting (XSS), Broken Authentication, Security Misconfiguration, and Information Disclosure.
+         Nmap – Identifies web services and versions.
+
+           Nikto – Detects web server vulnerabilities.
+           OWASP ZAP – Automated vulnerability scanner.
+           Burp Suite – Intercepts and manipulates HTTP/HTTPS requests.
+
+
+    Procedure
+    Part A – Nmap Scan
+       1. Open Terminal.
+        2. Scan the target web server.
+                    nmap -sV 192.168.1.20
+
+
+    Part B – Nikto Scan
+    nikto -h http://192.168.1.20
+    Part C – OWASP ZAP
+        1. Launch OWASP ZAP.
+        2. Enter the target URL.
+        3. Perform Automated Scan.
+        4. Review Alerts.
+    Part D – Burp Suite
+       1. Open Burp Suite.
+        2. Configure browser proxy to 127.0.0.1:8080.
+        3. Enable Intercept.
+        4. Browse the target website.
+        5. Observe captured HTTP requests.
+
+                                                      15
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y 6. Send requests
+to Repeater for testing.
+
+     Program / Commands
+     Step 1: Verify Nmap Installation
+             nmap --version
+     Step 2: Verify Nikto Installation
+             nikto -Version
+     Step 3: Scan the Target Web Server
+             nmap 192.168.1.20
+     Step 4: Detect Service Versions
+             nmap -sV 192.168.1.20
+     Step 5: Perform Aggressive Scan
+             sudo nmap -A 192.168.1.20
+     Step 6: Scan HTTP and HTTPS Ports
+             nmap -p 80,443 192.168.1.20
+     Step 7: Detect Operating System
+             sudo nmap -O 192.168.1.20
+     Step 8: Scan the Target Using Nikto
+             nikto -h http://192.168.1.20
+     Step 9: Save Nikto Report
+             nikto -h http://192.168.1.20 -o nikto_report.txt
+     Step 10: Launch OWASP ZAP
+             zaproxy
+     Step 11: Launch Burp Suite
+             burpsuite
+     Step 12: Configure Browser Proxy
+             Proxy Address : 127.0.0.1
+             Port : 8080
+     Step 13: Enable Burp Intercept
+
+                                                          Proxy
+                                                            ↓
+                                                        Intercept
+                                                            ↓
+                                                     Intercept is ON
+     Step 14: Capture HTTP Requests
+
+                                                    Open Browser
+                                                           ↓
+                                                Browse Target Website
+                                                           ↓
+                                         Captured Requests appear in Burp Suite
+
+     Step 15: Send Request to Repeater
+
+                                                  Right Click Request
+                                                           ↓
+                                                   Send to Repeater
+                                                           ↓
+                                                    Modify Request
+                                                           ↓
+                                                         Send
+
+
+                                                        16
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y Step 16: Spider
+the Target in OWASP ZAP
+
+                                                            Quick Start
+                                                                ↓
+                                                          Automated Scan
+                                                                ↓
+                                                              Spider
+    Step 17: Perform Active Scan
+
+                                                              Target
+                                                                 ↓
+                                                              Attack
+                                                                 ↓
+                                                            Active Scan
+    Step 18: Generate OWASP ZAP Report
+
+                                                               Report
+                                                                  ↓
+                                                           Generate Report
+                                                                  ↓
+                                                         Save as HTML/PDF
+
+    Step 19: Save Nmap Scan Report
+            nmap -oN nmap_scan.txt 192.168.1.20
+    Step 20: Display Saved Nikto Report
+            cat nikto_report.txt
+    Step 21: Display Help Menu
+            burpsuite --help
+            nikto -Help
+            nmap --help
+
+    Useful Nmap Commands
+    nmap 192.168.1.20
+    nmap -sV 192.168.1.20
+    sudo nmap -A 192.168.1.20
+    sudo nmap -O 192.168.1.20
+    nmap -p 80,443 192.168.1.20
+    nmap -oN nmap_scan.txt 192.168.1.20
+
+    Useful Nikto Commands
+    nikto -h http://192.168.1.20
+    nikto -h https://192.168.1.20
+    nikto -h http://192.168.1.20 -o nikto_report.txt
+    nikto -Version
+
+    Sample Output
+    Starting Nmap 7.95
+    Nmap scan report for 192.168.1.20
+    Host is up (0.0018s latency).
+    PORT        STATE SERVICE VERSION
+    80/tcp open http             Apache httpd 2.4.58
+    443/tcp open https            Apache SSL
+    OS Details : Linux Kernel 5.x
+    --------------------------------------------------
+                                                             17
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y Nikto Scan Report
+Target Host : 192.168.1.20 Server : Apache/2.4.58 Directory Listing
+Enabled Missing X-Frame-Options Header Missing X-Content-Type-Options
+Header Server Version Disclosure Scan Completed Successfully
+————————————————– OWASP ZAP Report Spider Completed : 100% Active Scan
+Completed : 100% High Alerts : 3 Medium Alerts : 6 Low Alerts : 8
+Informational Alerts : 18 ————————————————– Burp Suite Proxy Running
+Successfully HTTP Request Captured GET /login.php HTTP/1.1 POST
+/authenticate.php HTTP/1.1 Cookie : PHPSESSID=5F2A9C1D Status : 200 OK
+Request Successfully Sent to Repeater
+
+      Result
+             Thus, the target web application was successfully analyzed using Nmap, Nikto, OWASP ZAP, and
+      Burp Suite, and various security vulnerabilities were identified.
+
+
+
+                                                          18
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS ExYNo: 8 Web
+Application Assessment using Nessus Date :
+
+       Aim
+              To assess the security posture of a web application using Nessus Vulnerability Scanner.
+       Requirements
+           Kali Linux
+
+              Nessus Essentials
+
+              Target Web Server
+
+              Nessus is a widely used vulnerability assessment tool that scans systems for security vulnerabilities,
+       outdated software, configuration weaknesses, and missing patches.
+
+       Procedure
+          1. Start Nessus Service.
+
+                     sudo systemctl start nessusd
+           2. Open Browser.
+
+                      https://localhost:8834
+           3. Login to Nessus.
+
+           4. Create a Basic Network Scan.
+
+           5. Enter Target IP Address.
+
+           6. Start Scan.
+
+           7. Wait until completion.
+
+           8. View Vulnerability Report.
+
+
+       Program / Commands
+       Step 1: Verify Nessus Installation
+                nessuscli --version
+       Step 2: Start the Nessus Service
+                sudo systemctl start nessusd
+       Step 3: Check the Status of Nessus Service
+                sudo systemctl status nessusd
+       Step 4: Enable Nessus Service at Boot
+                sudo systemctl enable nessusd
+       Step 5: Open Nessus Web Interface
+                Open a web browser and enter:
+                https://localhost:8834
+       Step 6: Log in to Nessus
+                Username : admin
+                Password : ********
+       Step 7: Create a New Scan
+
+                                                         New Scan
+                                                            ↓
+                                                    Basic Network Scan
+
+                                                         19
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y Step 8: Configure
+the Target Name : Web Application Scan Target : 192.168.1.20 Step 9:
+Launch the Scan Click Launch Step 10: Monitor Scan Progress Status
+Running… ↓ Completed Step 11: View Vulnerability Report Results ↓
+Vulnerabilities ↓ Severity Step 12: Export Scan Report Export ↓ PDF Or
+HTML Step 13: Stop Nessus Service sudo systemctl stop nessusd Step 14:
+Restart Nessus Service sudo systemctl restart nessusd Step 15: Display
+Nessus Help nessuscli help
+
+     Useful Nessus Commands
+     sudo systemctl start nessusd
+     sudo systemctl status nessusd
+     sudo systemctl restart nessusd
+     sudo systemctl stop nessusd
+     sudo systemctl enable nessusd
+     nessuscli --version
+     nessuscli help
+
+     Sample Output
+     Starting Nessus Service...
+     Nessus Service Started Successfully.
+     Access URL:
+     https://localhost:8834
+     --------------------------------------------
+     Scan Name : Web Application Assessment
+     Target Host : 192.168.1.20
+     Scan Status : Completed
+     --------------------------------------------
+     Vulnerability Summary
+     Critical Vulnerabilities : 1
+     High Vulnerabilities : 4
+     Medium Vulnerabilities : 7
+     Low Vulnerabilities : 11
+     Informational Findings : 18
+                                                        20
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y Overall Risk
+Level : Medium ——————————————– Sample Vulnerabilities • Outdated Apache
+Web Server • Missing Security Headers • Weak SSL/TLS Configuration •
+Directory Listing Enabled • Server Version Disclosure ——————————————–
+Report Exported Successfully Format : PDF File Name :
+Nessus_Web_Report.pdf
+
+      Result
+            Thus, the web application vulnerabilities were successfully identified using Nessus Vulnerability
+      Scanner.
+
+
+
+                                                     21
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y Ex No: 9 Network
+Vulnerability Assessment using Nessus Date :
+
+    Aim
+           To perform vulnerability assessment on a network using Nessus.
+    Requirements
+        Kali Linux
+
+           Nessus Essentials
+
+           LAN Network
+
+
+           Network Vulnerability Assessment identifies weaknesses in routers, servers, switches, workstations,
+    and network devices before attackers exploit them.
+
+    Procedure
+       1. Launch Nessus.
+
+        2. Select Advanced Network Scan
+
+        3. Enter Network Range (Example - 192.168.1.0/24)
+
+        4. Configure Scan Policy.
+
+        5. Start Scan.
+
+        6. Wait for completion.
+
+        7. Analyze the generated report.
+
+
+    Program / Commands
+    Step 1: Verify Nessus Installation
+             nessuscli --version
+    Step 2: Start Nessus Service
+             sudo systemctl start nessusd
+    Step 3: Check Nessus Service Status
+             sudo systemctl status nessusd
+    Step 4: Enable Nessus Service
+             sudo systemctl enable nessusd
+    Step 5: Open Nessus Web Interface
+             Open a web browser and enter:
+             https://localhost:8834
+    Step 6: Login to Nessus
+             Username : admin
+             Password : ********
+    Step 7: Create a New Scan
+                                                   New Scan
+                                                      ↓
+                                             Advanced Network Scan
+    Step 8: Configure Network Scan
+             Scan Name : Network Vulnerability Assessment
+             Target Network : 192.168.1.0/24
+    Step 9: Launch the Scan
+
+                                                    22
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y Click Launch Step
+10: Monitor Scan Progress Status Running… ↓ Completed Step 11: View Scan
+Results Results ↓ Hosts ↓ Vulnerabilities Step 12: View Host Details
+Target Host ↓ 192.168.1.10 ↓ Open Ports ↓ Vulnerabilities Step 13:
+Export Scan Report Export ↓ PDF Or HTML Step 14: Restart Nessus Service
+sudo systemctl restart nessusd Step 15: Stop Nessus Service sudo
+systemctl stop nessusd Step 16: Display Nessus Help nessuscli help
+
+    Useful Nessus Commands
+    nessuscli --version
+    sudo systemctl start nessusd
+    sudo systemctl status nessusd
+    sudo systemctl restart nessusd
+    sudo systemctl stop nessusd
+    sudo systemctl enable nessusd
+    nessuscli help
+    Sample Output
+    Starting Nessus Service...
+    Nessus Service Started Successfully
+    Access URL
+    https://localhost:8834
+    ----------------------------------------------------
+    Network Vulnerability Assessment
+    Target Network : 192.168.1.0/24
+    Scan Status : Completed
+    ----------------------------------------------------
+    Host : 192.168.1.10
+    Open Ports
+    22/tcp SSH
+                                                               23
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y 80/tcp HTTP
+445/tcp SMB —————————————————- Detected Vulnerabilities Critical : 1
+High : 3 Medium : 6 Low : 10 Informational : 14 —————————————————-
+Sample Findings • Weak SSH Configuration • SMB Signing Disabled •
+Outdated HTTP Server • Missing Security Updates • SSL/TLS Weak Cipher
+Suites • CVE References Available —————————————————- Overall Risk Level
+: Medium —————————————————- Report Exported Successfully File Name :
+Network_Vulnerability_Report.pdf
+
+      Result
+               Thus, the network vulnerability assessment was successfully performed using Nessus, and the
+      identified vulnerabilities were analyzed for remediation.
+
+
+
+                                                            24
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y Ex No: 10
+Implementation of Firewall Configuration and Network Security Analysis
+Date :
+
+    Aim
+           To configure a firewall and analyze network traffic to improve the security of a computer network.
+    Requirements
+        Kali Linux
+
+           UFW (Uncomplicated Firewall) / iptables
+
+           Nmap
+
+           Target Machine
+
+           A firewall is a network security device or software that monitors and controls incoming and
+    outgoing network traffic based on predefined security rules. Firewall configuration helps prevent
+    unauthorized access while allowing legitimate communication.
+
+    Procedure
+       1. Open Kali Linux Terminal.
+
+        2. Check the firewall status.
+
+        3. Enable the firewall.
+
+        4. Allow SSH service.
+
+        5. Block Telnet service.
+
+        6. Verify firewall rules.
+
+        7. Scan the system using Nmap to verify the firewall configuration.
+
+
+    Program / Commands
+    Step 1: Check UFW Installation
+            ufw version
+    Step 2: Check Firewall Status
+            sudo ufw status
+    Step 3: Enable the Firewall
+            sudo ufw enable
+    Step 4: Allow SSH Service
+            sudo ufw allow 22/tcp
+    Step 5: Allow HTTP Service
+            sudo ufw allow 80/tcp
+    Step 6: Allow HTTPS Service
+            sudo ufw allow 443/tcp
+    Step 7: Block Telnet Service
+            sudo ufw deny 23/tcp
+    Step 8: Block FTP Service
+            sudo ufw deny 21/tcp
+    Step 9: Display Firewall Rules
+            sudo ufw status numbered
+    Step 10: Display Detailed Firewall Status
+            sudo ufw status verbose
+                                                      25
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y Step 11: Delete a
+Firewall Rule sudo ufw delete deny 23/tcp Step 12: Reload Firewall Rules
+sudo ufw reload Step 13: Reset Firewall Configuration sudo ufw reset
+Step 14: Disable Firewall sudo ufw disable Step 15: Scan the Target
+Machine Using Nmap nmap 192.168.1.15 Step 16: Scan Specific Ports nmap
+-p 21,22,23,80,443 192.168.1.15 Step 17: Detect Running Services nmap
+-sV 192.168.1.15 Step 18: Save Nmap Scan Report nmap -oN
+firewall_scan.txt 192.168.1.15 Step 19: View Saved Scan Report cat
+firewall_scan.txt Step 20: Display UFW Help ufw –help
+
+     Useful UFW Commands
+     sudo ufw status
+     sudo ufw enable
+     sudo ufw disable
+     sudo ufw allow 22/tcp
+     sudo ufw allow 80/tcp
+     sudo ufw allow 443/tcp
+     sudo ufw deny 21/tcp
+     sudo ufw deny 23/tcp
+     sudo ufw status verbose
+     sudo ufw status numbered
+     sudo ufw reload
+     sudo ufw reset
+
+
+
+
+                                                       26
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y Sample Output
+Firewall Status : Active ——————————————– Firewall Rules 22/tcp ALLOW
+80/tcp ALLOW 443/tcp ALLOW 21/tcp DENY 23/tcp DENY ——————————————–
+Firewall Configuration Default Incoming : DENY Default Outgoing : ALLOW
+Logging : ON ——————————————– Nmap Scan Report Target : 192.168.1.15 PORT
+STATE SERVICE 22/tcp open ssh 80/tcp open http 443/tcp open https 21/tcp
+filtered ftp 23/tcp filtered telnet ——————————————– Scan Completed
+Successfully Report Saved : firewall_scan.txt
+
+      Result
+              Thus, the firewall was successfully configured, and network traffic analysis confirmed that the
+      defined firewall rules were functioning correctly.
+
+                                                        27
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y Ex No: 11
+Implementation of Intrusion Detection and Prevention System (IDS/IPS)
+Date :
+
+    Aim
+           To install and configure an Intrusion Detection and Prevention System for monitoring malicious
+    network activities.
+    Requirements
+        Kali Linux
+
+           Snort IDS
+
+           Network Interface
+
+             An Intrusion Detection System (IDS) monitors network traffic and detects suspicious activities. An
+    Intrusion Prevention System (IPS) not only detects attacks but also blocks malicious traffic automatically.
+    Snort is a popular open-source IDS/IPS used for real-time traffic analysis and packet logging.
+
+    Procedure
+       1. Install Snort (if not already installed).
+
+        2. Configure the network interface.
+
+        3. Verify Snort configuration.
+
+        4. Start Snort in IDS mode.
+
+        5. Generate sample network traffic.
+
+        6. Observe alerts generated by Snort.
+
+
+    Program / Commands
+    Step 1: Verify Snort Installation
+            snort -V
+
+    Step 2: Display Snort Help Menu
+            snort -?
+    Step 3: Check Network Interfaces
+            ip link show
+    Step 4: Validate Snort Configuration File
+            sudo snort -T -c /etc/snort/snort.conf
+    Step 5: Start Snort in IDS Mode
+            sudo snort -A console -q -c /etc/snort/snort.conf -i eth0
+            Note: Replace eth0 with your active network interface (e.g., wlan0).
+    Step 6: Start Snort with Packet Logging
+            sudo snort -dev -l /var/log/snort -i eth0
+    Step 7: Capture Network Traffic
+            sudo snort -v -i eth0
+    Step 8: Display Packet Headers Only
+            sudo snort -d -i eth0
+    Step 9: Display Complete Packet Information
+            sudo snort -X -i eth0
+    Step 10: Display Snort Alert Log
+            cat /var/log/snort/alert
+                                                      28
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y Step 11: View the
+Latest Alerts tail -20 /var/log/snort/alert Step 12: Monitor Alerts in
+Real Time tail -f /var/log/snort/alert Step 13: Generate Test Traffic
+(Ping) ping 192.168.1.15 Step 14: Display Snort Log Files ls
+/var/log/snort/ Step 15: Stop Snort Press the following keys in the
+terminal: Ctrl + C Step 16: Display Snort Rule Directory ls
+/etc/snort/rules/ Step 17: Restart Snort Service (If Installed as a
+Service) sudo systemctl restart snort Step 18: Check Snort Service
+Status sudo systemctl status snort
+
+     Useful Snort Commands
+     snort -V
+     snort -?
+     sudo snort -T -c /etc/snort/snort.conf
+     sudo snort -A console -q -c /etc/snort/snort.conf -i eth0
+     sudo snort -dev -l /var/log/snort -i eth0
+     sudo snort -v -i eth0
+     sudo snort -d -i eth0
+     sudo snort -X -i eth0
+     cat /var/log/snort/alert
+     tail -20 /var/log/snort/alert
+     tail -f /var/log/snort/alert
+
+
+
+     Sample Output
+     Snort Version 2.9.x
+     ----------------------------------------------------
+     Initializing Network Interface : eth0
+     Loading Configuration File
+     /etc/snort/snort.conf
+     Configuration Validation Successful
+     ----------------------------------------------------
+     Commencing Packet Processing
+     Packet Capture Started...
+     ----------------------------------------------------
+     [] ALERT []
+     ICMP Ping Detected
+     Priority : 3
+     Protocol : ICMP
+     Source IP : 192.168.1.20
+     Destination IP : 192.168.1.15
+     Action : Alert Generated
+     ----------------------------------------------------
+                                                            29
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y [] ALERT [] TCP
+Connection Attempt Source Port : 45872 Destination Port : 22 Service :
+SSH Priority : 2 —————————————————- Packets Received : 256 Packets
+Analyzed : 256 Alerts Generated : 2 Packet Logging Enabled
+—————————————————-
+
+       Alert Log Saved Successfully
+       Location : /var/log/snort/alert
+
+
+
+
+       Result
+               Thus, Snort IDS was successfully configured and tested. The generated alerts confirmed that
+       suspicious network activities were detected successfully.
+
+
+
+                                                            30
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y Ex No: 12 Study
+of Wireless Network Components and Security Mechanisms Date :
+
+    Aim
+            To study the components of a wireless network and understand the security mechanisms used to
+    protect wireless communication.
+    Requirements
+         Kali Linux
+
+           Wireless Adapter (Monitor Mode Supported)
+
+           WiFi Network
+
+           Aircrack-ng Suite
+
+        Wireless networks provide communication without physical cables. They are commonly protected using
+    authentication and encryption mechanisms such as WPA2 and WPA3.
+    Major Wireless Components include:
+         Wireless Access Point (AP)
+
+           Wireless Router
+
+           Wireless Client
+
+           Wireless Network Interface Card (NIC)
+
+           Antenna
+
+    Common Wireless Security Mechanisms include:
+        WEP
+
+           WPA
+
+           WPA2
+
+           WPA3
+
+           MAC Address Filtering
+
+           Hidden SSID
+
+           Strong Password Policies
+
+    Procedure
+       1. Open Terminal.
+
+        2. Identify the wireless interface.
+
+        3. Enable monitor mode.
+
+        4. Capture nearby wireless networks.
+
+        5. Observe SSID, BSSID, Channel, and Encryption Type.
+
+        6. Stop monitor mode.
+
+
+
+
+                                                    31
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y Program /
+Commands Step 1: Verify Aircrack-ng Installation aircrack-ng –help Step
+2: Display Wireless Network Interface iwconfig Step 3: Display Network
+Interfaces ip link show Step 4: Display Available Wireless Devices iw
+dev Step 5: Check Wireless Interface Status nmcli device status Step 6:
+Enable Monitor Mode sudo airmon-ng start wlan0 Step 7: Verify Monitor
+Mode iwconfig Step 8: Capture Nearby Wireless Networks sudo airodump-ng
+wlan0mon Step 9: Capture Packets from a Specific Access Point sudo
+airodump-ng –bssid 54:AF:97:12:34:56 -c 1 wlan0mon Step 10: Save
+Captured Packets sudo airodump-ng –write wireless_capture wlan0mon Step
+11: Display Nearby Wi-Fi Networks nmcli device wifi list Step 12: Scan
+Wireless Networks sudo iwlist wlan0 scan Step 13: Display Wireless
+Configuration iwconfig wlan0 Step 14: Disable Monitor Mode sudo
+airmon-ng stop wlan0mon Step 15: Restart Network Manager sudo systemctl
+restart NetworkManager Step 16: Verify Network Connectivity ping 8.8.8.8
+Step 17: Display Aircrack-ng Version aircrack-ng –version Step 18:
+Display Help Menu airmon-ng –help
+
+     Useful Commands
+     iwconfig
+     ip link show
+     iw dev
+     nmcli device status
+     nmcli device wifi list
+     sudo iwlist wlan0 scan
+     sudo airmon-ng start wlan0
+     sudo airodump-ng wlan0mon
+     sudo airodump-ng --write wireless_capture wlan0mon
+     sudo airmon-ng stop wlan0mon
+     sudo systemctl restart NetworkManager
+     ping 8.8.8.8
+                                                   32
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y aircrack-ng
+–version
+
+    Sample Output
+    Aircrack-ng Version 1.7
+    --------------------------------------------
+    Wireless Interface
+    wlan0
+    IEEE 802.11
+    Mode : Managed
+    --------------------------------------------
+    Monitor Mode Enabled
+    Interface : wlan0mon
+    --------------------------------------------
+    Nearby Wireless Networks
+    BSSID              CH ENC ESSID
+    54:AF:97:12:34:56 1 WPA2 CollegeWiFi
+    20:5A:0F:22:11:88 6 WPA3 Department
+    00:AA:BB:CC:DD:EE 11 WPA2 LabNetwork
+    90:11:22:33:44:55 3 WPA2 StudentWiFi
+    --------------------------------------------
+    Packets Captured : 245
+
+    Clients Detected : 6
+    Capture File : wireless_capture-01.cap
+    --------------------------------------------
+    Monitor Mode Disabled Successfully
+    Network Manager Restarted
+    Internet Connectivity Restored
+
+
+
+
+    Result
+         Thus, the wireless network components were successfully studied, and the available wireless networks
+    along with their security mechanisms were identified using the Aircrack-ng suite.
+
+                                                    33
+
+2026-2027 CC1509 – Ethical Hacking Department of CYS Y VIVA QUESTIONS
+
+1.  What is footprinting?
+
+2.  Why is footprinting the first phase of ethical hacking?
+
+3.  Define port scanning.
+
+4.  What are open ports?
+
+5.  What is the default TCP port for HTTP?
+
+6.  What is the purpose of Nmap?
+
+7.  Differentiate between TCP and UDP scanning.
+
+8.  What is service version detection?
+
+9.  What is OS fingerprinting?
+
+10. Mention any two advantages of port scanning.
+
+11. What is host discovery?
+
+12. What is the difference between host discovery and port scanning?
+
+13. Explain the purpose of the -sn option in Nmap.
+
+14. What is aggressive scanning?
+
+15. What information can Nmap identify?
+
+16. What is a live host?
+
+17. Explain the purpose of service detection.
+
+18. What is an IP address?
+
+19. Why is network reconnaissance important?
+
+20. Name any two Nmap scan types.
+
+21. What is password auditing?
+
+22. Why are strong passwords important?
+
+23. What is John the Ripper?
+
+24. What is password hashing?
+
+25. Define brute-force attack.
+
+26. What is a dictionary attack?
+
+27. What is the purpose of the unshadow command?
+
+28. Difference between hashing and encryption.
+
+29. What makes a password strong?
+
+                                                      34
+
+    2026-2027 CC1509 – Ethical Hacking Department of CYS Y30. List two
+    password security best practices.
+
+30. What is enumeration?
+
+31. What is SMB?
+
+32. What is NetBIOS?
+
+33. What information can enumeration reveal?
+
+34. What is Enum4linux?
+
+35. Why should enumeration be performed after scanning?
+
+36. What is a shared folder?
+
+37. What is the purpose of SMB enumeration?
+
+38. Differentiate between scanning and enumeration.
+
+39. Name two enumeration tools.
+
+40. What is packet sniffing?
+
+41. What is Wireshark?
+
+42. What is a network packet?
+
+43. What is packet capture?
+
+44. What is a protocol?
+
+45. Name any four protocols visible in Wireshark.
+
+46. What is the purpose of packet filtering?
+
+47. Difference between TCP and UDP packets.
+
+48. What is ARP?
+
+49. Why is Wireshark widely used by network administrators?
+
+50. What is web vulnerability scanning?
+
+51. What is Nikto?
+
+52. What is OWASP ZAP?
+
+53. What are HTTP security headers?
+
+54. What is directory indexing?
+
+55. What is SQL Injection?
+
+56. What is Cross-Site Scripting (XSS)?
+
+57. Why should outdated web servers be updated?
+
+58. What is automated vulnerability scanning?
+
+59. Name two web application vulnerability scanners. 35 2026-2027 CC1509
+    – Ethical Hacking Department of CYS Y61. What is Burp Suite?
+
+60. What is an intercepting proxy?
+
+61. What is the purpose of Burp Repeater?
+
+62. What is HTTP Request interception?
+
+63. Difference between GET and POST requests.
+
+64. What is session management?
+
+65. What is cookie manipulation?
+
+66. Why is Burp Suite useful during penetration testing?
+
+67. What is request modification?
+
+68. Name two Burp Suite modules.
+
+69. What is Nessus?
+
+70. What is vulnerability assessment?
+
+71. Difference between vulnerability assessment and penetration testing.
+
+72. What is a CVE?
+
+73. What is a vulnerability report?
+
+74. Why are security patches important?
+
+75. What is risk severity?
+
+76. Explain Critical and High severity vulnerabilities.
+
+77. What is a false positive?
+
+78. Mention two advantages of Nessus.
+
+79. What is network vulnerability assessment?
+
+80. Why should organizations perform vulnerability scanning?
+
+81. What is a network scan?
+
+82. What is an open port?
+
+83. What is a network service?
+
+84. What is SMB vulnerability?
+
+85. What is SSH?
+
+86. What is HTTP vulnerability?
+
+87. What is remediation?
+
+88. Name two vulnerability scanners.
+
+89. What is a firewall? 36 2026-2027 CC1509 – Ethical Hacking Department
+    of CYS Y92. What is UFW?
+
+90. What is iptables?
+
+91. Difference between hardware and software firewalls.
+
+92. What is packet filtering?
+
+93. Why is Telnet considered insecure?
+
+94. What is SSH?
+
+95. What is a firewall rule?
+
+96. What is inbound traffic?
+
+97.    What is outbound traffic?
+
+98.    What is IDS?
+
+99.    What is IPS?
+
+100.    Difference between IDS and IPS.
+
+101.    What is Snort?
+
+102.    What is a Snort rule?
+
+103.    What is signature-based detection?
+
+104.    What is anomaly-based detection?
+
+105.    Difference between Host-based IDS and Network-based IDS.
+
+106.    What is an intrusion?
+
+107.    Why are IDS and IPS important?
+
+108.    What is a wireless network?
+
+109.    What is a Wireless Access Point (AP)?
+
+110.    What is SSID?
+
+111.    What is BSSID?
+
+112.    Difference between WPA2 and WPA3.
+
+113.    What is monitor mode?
+
+114.    What is Aircrack-ng?
+
+115.    What is MAC address filtering?
+
+116.    What is wireless encryption?
+
+117.    Why is WPA3 more secure than WPA2?
+
+
+
+
+                                                    37
+
+     
